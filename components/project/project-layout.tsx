@@ -1,6 +1,7 @@
 import { ProjectLeftColumn } from "@/components/project/project-left-column"
 import { ProjectRightColumn } from "@/components/project/project-right-column"
 import { PhoneNavigation } from "@/components/portfolio/phone-navigation"
+import { StaggerEnter, StaggerItem } from "@/components/portfolio/stagger-enter"
 import { projectPhoneNavSections } from "@/constants/projects/navigation"
 import type { PortfolioProject } from "@/constants/types"
 
@@ -15,10 +16,14 @@ export const ProjectLayout = ({ project }: ProjectLayoutProps) => {
         sections={projectPhoneNavSections}
         className="md:hidden"
       />
-      <div className="flex min-h-dvh flex-col gap-framer-10 md:h-full md:flex-row md:gap-0">
-        <ProjectLeftColumn project={project} />
-        <ProjectRightColumn project={project} />
-      </div>
+      <StaggerEnter className="flex min-h-dvh flex-col gap-framer-10 md:h-full md:flex-row md:gap-0">
+        <StaggerItem className="w-full md:h-dvh md:w-1/2 lg:w-1/3">
+          <ProjectLeftColumn project={project} />
+        </StaggerItem>
+        <StaggerItem className="w-full md:h-dvh md:w-1/2 lg:w-2/3">
+          <ProjectRightColumn project={project} />
+        </StaggerItem>
+      </StaggerEnter>
     </main>
   )
 }

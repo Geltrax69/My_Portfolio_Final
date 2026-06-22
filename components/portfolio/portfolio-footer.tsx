@@ -113,19 +113,27 @@ export const PortfolioFooter = ({
             </div>
           </div>
           <div className="grid w-full grid-cols-3">
-            <p className="text-muted-foreground">Inspired by</p>
+            <p className="text-muted-foreground">Inspired from</p>
             <div className="col-span-2 flex flex-col gap-1.5 underline-offset-4">
-              {[
-                "https://ana.sh",
-                "https://www.jkane.co",
+              {[{
+                name: "Manu Paaji",
+                href: "https://x.com/mannupaaji"
+              },  {
+                name: "Ana Howard",
+                href: "https://x.com/AnaArsonist"
+              },
+              {
+                name: "Jordan Jenkins",
+                href: "https://x.com/jkane"
+              },
               ].map((item) => (
                 <Link
-                  href={item}
+                  href={item.href}
                   target="_blank"
-                  key={item}
+                  key={item.name}
                   className="w-fit cursor-pointer decoration-dotted hover:underline"
                 >
-                  {item.replace("https://", "")}
+                  {item.name}
                 </Link>
               ))}
             </div>
