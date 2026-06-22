@@ -138,7 +138,10 @@ export const PortfolioFooter = ({
               ))}
             </div>
           </div>
+          <div className="flex items-center gap-2 flex-wrap">
           <p className="text-muted-foreground">{copyright}</p>
+          <Link href={"https://github.com/diip3sh/portfolio"} target="_blank" rel="noreferrer" className="type-label underline underline-offset-4 decoration-dotted hover:underline">Code</Link>
+          </div>
         </div>
       </div>
 
