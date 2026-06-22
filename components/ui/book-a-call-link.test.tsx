@@ -13,7 +13,7 @@ describe("BookACallLink", () => {
     vi.useFakeTimers()
     render(<BookACallLink href="mailto:test@example.com" />)
 
-    const link = screen.getByRole("link", { name: "BOOK A CALL" })
+    const link = screen.getByRole("link", { name: "GET IN TOUCH" })
     expect(link).toHaveAttribute("data-phase", "idle")
 
     fireEvent.mouseEnter(link)
@@ -32,7 +32,7 @@ describe("BookACallLink", () => {
     vi.useFakeTimers()
     render(<BookACallLink href="mailto:test@example.com" />)
 
-    const link = screen.getByRole("link", { name: "BOOK A CALL" })
+    const link = screen.getByRole("link", { name: "GET IN TOUCH" })
     fireEvent.focus(link)
     expect(link).toHaveAttribute("data-phase", "start")
 
@@ -45,12 +45,15 @@ describe("BookACallLink", () => {
       <BookACallLink href="mailto:test@example.com" />
     )
 
-    const link = screen.getByRole("link", { name: "BOOK A CALL" })
+    const link = screen.getByRole("link", { name: "GET IN TOUCH" })
     const portrait = container.querySelector('[data-avatar-layer="portrait"]')
     const youAvatar = container.querySelector('[data-avatar-layer="you"]')
+    const activeLayer = container.querySelector('[data-book-layer="active"]')
 
     expect(link.className).toContain("rounded-full")
     expect(link.style.background).toContain("linear-gradient")
+    expect(activeLayer).toHaveClass("opacity-0")
+    expect(activeLayer).toHaveStyle({ opacity: "0" })
     expect(portrait).toHaveClass("z-0")
     expect(youAvatar).toHaveClass("z-10")
   })

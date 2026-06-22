@@ -145,6 +145,7 @@ export const BookACallLink = ({
       )}
     >
       <motion.span
+        initial={false}
         aria-hidden="true"
         className="absolute inset-0 flex items-center justify-center text-sm leading-none font-semibold"
         animate={{
@@ -158,17 +159,21 @@ export const BookACallLink = ({
       </motion.span>
 
       <motion.span
+        initial={false}
         aria-hidden="true"
-        className="absolute inset-0 flex items-center justify-start gap-0 pl-2 text-xs leading-none font-semibold"
+        data-book-layer="active"
+        className="absolute inset-0 flex items-center justify-start gap-0 pl-2 text-xs leading-none font-semibold opacity-0"
         animate={{ opacity: isActive ? 1 : 0 }}
         transition={withMotion(textTransition)}
       >
         <motion.span
+          initial={false}
           className="flex shrink-0 items-center justify-center"
           animate={{ x: isEndState ? 0 : CLUSTER_CENTER_X }}
           transition={withMotion(slideSpring)}
         >
           <motion.span
+            initial={false}
             data-avatar-layer="portrait"
             className="relative z-0 block size-10 shrink-0 overflow-hidden rounded-full"
             animate={{
@@ -191,6 +196,7 @@ export const BookACallLink = ({
           </motion.span>
 
           <motion.span
+            initial={false}
             aria-hidden="true"
             data-avatar-layer="plus"
             className="block overflow-hidden text-center text-base"
@@ -211,6 +217,7 @@ export const BookACallLink = ({
           </motion.span>
 
           <motion.span
+            initial={false}
             data-avatar-layer="you"
             className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-white text-black"
             animate={{
@@ -230,6 +237,7 @@ export const BookACallLink = ({
         </motion.span>
 
         <motion.span
+          initial={false}
           className="block overflow-hidden whitespace-nowrap text-sm"
           animate={{
             width: isEndState ? "auto" : 0,

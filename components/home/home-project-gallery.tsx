@@ -19,10 +19,26 @@ const sortByOrder = (
 
 const renderGalleryItem = (item: PortfolioGalleryItem) => {
   if (item.type === "project") {
-    return <ProjectCard key={item.slug} project={item} isPriority={item.order <= 3} />
+    return (
+      <ProjectCard
+        key={item.slug}
+        project={item}
+        isPriority={item.order <= 3}
+      />
+    )
   }
 
-  return <ShowcaseCard key={item.xLink} item={item} />
+  const { prompt, ...clientItem } = item
+  const promptId = prompt ? `${item.col}-${item.order}` : undefined
+
+  return (
+    <ShowcaseCard
+      key={`${item.col}-${item.order}-${item.title}`}
+      item={clientItem}
+      promptId={promptId}
+      isPriority={item.media.type === "component" && item.order <= 2}
+    />
+  )
 }
 
 export const HomeProjectGallery = ({

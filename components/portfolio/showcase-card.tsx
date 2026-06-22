@@ -9,7 +9,10 @@ import { Tick01FreeIcons } from "@hugeicons/core-free-icons"
 
 import { CopySVG } from "@/components/svgs/copy-svg"
 import { ResetSVG } from "@/components/svgs/reset-svg"
-import { showcaseComponentRegistry } from "@/components/showcase/showcase-component-registry"
+import {
+  preloadShowcaseComponent,
+  showcaseComponentRegistry,
+} from "@/components/showcase/showcase-component-registry"
 import { GooeyToast } from "@/components/ui/gooey-toast"
 import { ToolsMenu, type MenuBarItem } from "@/components/ui/tools-menu"
 import type { ProjectShowcaseComponent } from "@/constants/types"
@@ -21,7 +24,9 @@ import { MediaPlaceholder } from "@/components/portfolio/media-placeholder"
 type CopyStatus = "idle" | "copied" | "failed"
 
 type ShowcaseCardProps = {
-  item: ProjectShowcaseComponent
+  isPriority?: boolean
+  item: Omit<ProjectShowcaseComponent, "prompt">
+  promptId?: string
 }
 
 type ShowcaseMediaProps = ShowcaseCardProps & {
@@ -40,6 +45,7 @@ type ShowcaseComponentMedia = Extract<
 
 const COPY_STATUS_RESET_DELAY_MS = 1500
 const SHOWCASE_OBSERVER_ROOT_MARGIN = "700px"
+const SHOWCASE_PRELOAD_ROOT_MARGIN = "1600px"
 const HOVER_INSET_PX = 2
 const MEDIA_RADIUS_PX = 4
 // Bottom inset = heading-band height, so the media ends just above the band
@@ -170,16 +176,64 @@ const LazyShowcaseVideo = ({ media }: { media: ShowcaseVideoMedia }) => {
 }
 
 const LazyShowcaseComponent = ({
+  isPriority = false,
   media,
   resetSignal,
 }: {
+  isPriority?: boolean
   media: ShowcaseComponentMedia
   resetSignal: number
 }) => {
-  const [containerRef, isNearViewport] = useIsNearViewport<HTMLDivElement>()
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [isNearViewport, setIsNearViewport] = useState(isPriority)
   const ShowcaseComponent = showcaseComponentRegistry[media.componentKey]
   const placeholderHeightClassName =
     placeholderHeightByComponentKey[media.componentKey] ?? "min-h-[320px]"
+
+  useEffect(() => {
+    const element = containerRef.current
+
+    if (!element || isPriority || !ShowcaseComponent) {
+      return
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      preloadShowcaseComponent(media.componentKey)
+      setIsNearViewport(true)
+      return
+    }
+
+    const preloadObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) {
+          return
+        }
+
+        preloadShowcaseComponent(media.componentKey)
+        preloadObserver.disconnect()
+      },
+      { rootMargin: SHOWCASE_PRELOAD_ROOT_MARGIN }
+    )
+    const renderObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) {
+          return
+        }
+
+        setIsNearViewport(true)
+        renderObserver.disconnect()
+      },
+      { rootMargin: SHOWCASE_OBSERVER_ROOT_MARGIN }
+    )
+
+    preloadObserver.observe(element)
+    renderObserver.observe(element)
+
+    return () => {
+      preloadObserver.disconnect()
+      renderObserver.disconnect()
+    }
+  }, [isPriority, media.componentKey, ShowcaseComponent])
 
   if (!ShowcaseComponent) {
     return (
@@ -213,22 +267,66 @@ const LazyShowcaseComponent = ({
   )
 }
 
-const ShowcaseMedia = ({ item, resetSignal }: ShowcaseMediaProps) => {
+const ShowcaseMedia = ({
+  isPriority,
+  item,
+  resetSignal,
+}: ShowcaseMediaProps) => {
   const { media } = item
 
   if (media.type === "video") {
     return <LazyShowcaseVideo media={media} />
   }
 
-  return <LazyShowcaseComponent media={media} resetSignal={resetSignal} />
+  return (
+    <LazyShowcaseComponent
+      isPriority={isPriority}
+      media={media}
+      resetSignal={resetSignal}
+    />
+  )
 }
 
-export const ShowcaseCard = ({ item }: ShowcaseCardProps) => {
+type ShowcasePromptResponse = {
+  prompt: string
+}
+
+const promptRequestCache = new Map<string, Promise<string>>()
+
+const loadShowcasePrompt = (promptId: string) => {
+  const cachedPromptRequest = promptRequestCache.get(promptId)
+
+  if (cachedPromptRequest) {
+    return cachedPromptRequest
+  }
+
+  const promptRequest = fetch(`/api/showcase-prompts/${promptId}`)
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error("Unable to load showcase prompt")
+      }
+
+      const data = (await response.json()) as ShowcasePromptResponse
+      return data.prompt
+    })
+    .catch((error: unknown) => {
+      promptRequestCache.delete(promptId)
+      throw error
+    })
+
+  promptRequestCache.set(promptId, promptRequest)
+  return promptRequest
+}
+
+export const ShowcaseCard = ({
+  isPriority = false,
+  item,
+  promptId,
+}: ShowcaseCardProps) => {
   const [copyStatus, setCopyStatus] = useState<CopyStatus>("idle")
   const [resetSignal, setResetSignal] = useState(0)
   const resetStatusTimeoutRef = useRef<number | null>(null)
-  const prompt = item.prompt?.trim()
-  const hasPrompt = Boolean(prompt)
+  const hasPrompt = Boolean(promptId)
   const hasReset = Boolean(item.resettable)
   const allowsMediaOverflow = item.media.type === "component"
   const [playCopySound] = useSound(clickSoftSound, { volume: 0.25 })
@@ -254,13 +352,14 @@ export const ShowcaseCard = ({ item }: ShowcaseCardProps) => {
   }, [])
 
   const handleCopyPrompt = async () => {
-    if (!prompt) {
+    if (!promptId) {
       return
     }
 
     playCopySound()
 
     try {
+      const prompt = await loadShowcasePrompt(promptId)
       await navigator.clipboard.writeText(prompt)
       setCopyStatus("copied")
       toast.custom(() => (
@@ -292,6 +391,26 @@ export const ShowcaseCard = ({ item }: ShowcaseCardProps) => {
 
   const handleResetShowcase = () => {
     setResetSignal((currentSignal) => currentSignal + 1)
+  }
+
+  const handlePreloadShowcase = () => {
+    if (item.media.type === "component") {
+      preloadShowcaseComponent(item.media.componentKey)
+    }
+
+    if (promptId) {
+      void loadShowcasePrompt(promptId).catch(() => {})
+    }
+  }
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+    handlePreloadShowcase()
+  }
+
+  const handleFocus = () => {
+    setIsFocusWithin(true)
+    handlePreloadShowcase()
   }
 
   const statusMessage =
@@ -341,9 +460,9 @@ export const ShowcaseCard = ({ item }: ShowcaseCardProps) => {
   return (
     <article
       aria-labelledby={`showcase-${item.order}-title`}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setIsHovered(false)}
-      onFocus={() => setIsFocusWithin(true)}
+      onFocus={handleFocus}
       onBlur={handleFocusBlur}
       className={cn(
         "group duration-portfolio relative z-0 block shrink-0 rounded-none border border-transparent bg-secondary shadow-xs shadow-transparent transition-[border-radius,box-shadow] ease-portfolio will-change-transform ring-inset focus-within:z-50 focus-within:rounded-md focus-within:shadow-muted focus-within:ring-border focus-within:outline-none hover:z-50 hover:rounded-md hover:border-border hover:shadow-muted hover:ring-border",
@@ -377,7 +496,11 @@ export const ShowcaseCard = ({ item }: ShowcaseCardProps) => {
           animate={{ borderRadius: isActive ? MEDIA_RADIUS_PX : 0 }}
           transition={revealSpring}
         >
-          <ShowcaseMedia item={item} resetSignal={resetSignal} />
+          <ShowcaseMedia
+            isPriority={isPriority}
+            item={item}
+            resetSignal={resetSignal}
+          />
         </motion.div>
       </motion.div>
       <motion.div

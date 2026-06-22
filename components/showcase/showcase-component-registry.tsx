@@ -22,7 +22,7 @@ const CardHoverShowcase = dynamic<ShowcaseComponentProps>(
 
       return CardHoverRegistryShowcase
     }),
-  { ssr: false, loading: ComponentLoadingPlaceholder }
+  { loading: ComponentLoadingPlaceholder }
 )
 
 const EditTimeRegistryShowcase = dynamic<ShowcaseComponentProps>(
@@ -32,7 +32,7 @@ const EditTimeRegistryShowcase = dynamic<ShowcaseComponentProps>(
 
       return EditTimeShowcase
     }),
-  { ssr: false, loading: ComponentLoadingPlaceholder }
+  { loading: ComponentLoadingPlaceholder }
 )
 
 const AnalogStickRegistryShowcase = dynamic<ShowcaseComponentProps>(
@@ -42,7 +42,7 @@ const AnalogStickRegistryShowcase = dynamic<ShowcaseComponentProps>(
 
       return AnalogStickShowcase
     }),
-  { ssr: false, loading: ComponentLoadingPlaceholder }
+  { loading: ComponentLoadingPlaceholder }
 )
 
 const PolaroidStackRegistryShowcase = dynamic<ShowcaseComponentProps>(
@@ -52,7 +52,7 @@ const PolaroidStackRegistryShowcase = dynamic<ShowcaseComponentProps>(
 
       return PolaroidStackShowcase
     }),
-  { ssr: false, loading: ComponentLoadingPlaceholder }
+  { loading: ComponentLoadingPlaceholder }
 )
 
 const ThemeToggleRegistryShowcase = dynamic<ShowcaseComponentProps>(
@@ -62,7 +62,7 @@ const ThemeToggleRegistryShowcase = dynamic<ShowcaseComponentProps>(
 
       return ThemeToggleShowcase
     }),
-  { ssr: false, loading: ComponentLoadingPlaceholder }
+  { loading: ComponentLoadingPlaceholder }
 )
 
 const SetTimerRegistryShowcase = dynamic<ShowcaseComponentProps>(
@@ -70,7 +70,7 @@ const SetTimerRegistryShowcase = dynamic<ShowcaseComponentProps>(
     import("@/components/showcase/set-timer-showcase").then(
       (module) => module.SetTimer
     ),
-  { ssr: false, loading: ComponentLoadingPlaceholder }
+  { loading: ComponentLoadingPlaceholder }
 )
 
 const PaperShredRegistryShowcase = dynamic<ShowcaseComponentProps>(
@@ -78,7 +78,7 @@ const PaperShredRegistryShowcase = dynamic<ShowcaseComponentProps>(
     import("@/components/showcase/paper-shred-showcase").then(
       (module) => module.PaperShredButton
     ),
-  { ssr: false, loading: ComponentLoadingPlaceholder }
+  { loading: ComponentLoadingPlaceholder }
 )
 
 const ScanDocumentRegistryShowcase = dynamic<ShowcaseComponentProps>(
@@ -86,7 +86,7 @@ const ScanDocumentRegistryShowcase = dynamic<ShowcaseComponentProps>(
     import("@/components/showcase/scan-document-showcase").then(
       (module) => module.ScanDocumentButton
     ),
-  { ssr: false, loading: ComponentLoadingPlaceholder }
+  { loading: ComponentLoadingPlaceholder }
 )
 
 const LiquidGlassBlobRegistryShowcase = dynamic<ShowcaseComponentProps>(
@@ -94,7 +94,7 @@ const LiquidGlassBlobRegistryShowcase = dynamic<ShowcaseComponentProps>(
     import("@/components/showcase/liquid-glass-blob-showcase").then(
       (module) => module.LiquidGlassBlob
     ),
-  { ssr: false, loading: ComponentLoadingPlaceholder }
+  { loading: ComponentLoadingPlaceholder }
 )
 
 const SubscriptionRegistryShowcase = dynamic<ShowcaseComponentProps>(
@@ -102,8 +102,32 @@ const SubscriptionRegistryShowcase = dynamic<ShowcaseComponentProps>(
     import("@/components/showcase/subscription-showcase").then(
       (module) => module.SubscriptionShowcase
     ),
-  { ssr: false, loading: ComponentLoadingPlaceholder }
+  { loading: ComponentLoadingPlaceholder }
 )
+
+const showcaseComponentPreloaders: Record<string, () => Promise<unknown>> = {
+  "edit-time": () => import("@/components/showcase/edit-time-showcase"),
+  "card-hover": () => import("@/components/showcase/card-hover-showcase"),
+  "paper-shred": () => import("@/components/showcase/paper-shred-showcase"),
+  "analog-stick": () => import("@/components/showcase/analog-stick-showcase"),
+  "polaroid-stack": () => import("@/components/showcase/polaroid-stack-showcase"),
+  "scan-document": () => import("@/components/showcase/scan-document-showcase"),
+  "theme-toggle": () => import("@/components/showcase/theme-toggle-showcase"),
+  "set-timer": () => import("@/components/showcase/set-timer-showcase"),
+  "liquid-glass-blob": () =>
+    import("@/components/showcase/liquid-glass-blob-showcase"),
+  subscription: () => import("@/components/showcase/subscription-showcase"),
+}
+
+export const preloadShowcaseComponent = (componentKey: string) => {
+  const preloadComponent = showcaseComponentPreloaders[componentKey]
+
+  if (!preloadComponent) {
+    return
+  }
+
+  void preloadComponent()
+}
 
 export const showcaseComponentRegistry: Record<
   string,

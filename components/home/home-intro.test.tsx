@@ -16,7 +16,7 @@ describe("HomeIntroSection contact actions", () => {
   it("renders one book-a-call link instead of old contact buttons", () => {
     render(<HomeIntroSection intro={mockIntro} />)
 
-    const bookingLink = screen.getByRole("link", { name: /book a call/i })
+    const bookingLink = screen.getByRole("link", { name: /get in touch/i })
 
     expect(bookingLink.tagName).toBe("A")
     expect(
@@ -30,11 +30,11 @@ describe("HomeIntroSection contact actions", () => {
   it("opens booking link in a new tab safely", () => {
     render(<HomeIntroSection intro={mockIntro} />)
 
-    const bookingLink = screen.getByRole("link", { name: /book a call/i })
+    const bookingLink = screen.getByRole("link", { name: /get in touch/i })
 
     expect(bookingLink).toHaveAttribute("href", portfolioContact.bookingHref)
     expect(bookingLink).toHaveAttribute("target", "_blank")
     expect(bookingLink).toHaveAttribute("rel", "noopener noreferrer")
-    expect(bookingLink.className).toContain("max-w-52")
+    expect(bookingLink.className).toContain("max-w-48")
   })
 })
