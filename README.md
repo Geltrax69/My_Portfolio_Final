@@ -6,10 +6,6 @@ A precise portfolio for a multidisciplinary designer, frontend developer, and cr
 
 ![Portfolio home page](docs/screenshots/home.png)
 
-| Code project | Fund Dashboard project |
-|---|---|
-| ![Code project page](docs/screenshots/project-code.png) | ![Fund Dashboard project page](docs/screenshots/project-fund-dashboard.png) |
-
 ## Stack
 
 - **Framework:** Next.js 16 (App Router)
