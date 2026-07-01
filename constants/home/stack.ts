@@ -10,19 +10,19 @@ export const homeStack: StackTool[] = [
   {
     name: "AWS",
     description: "Cloud infrastructure and services.",
-    iconSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNUFC1Ywl2UUMLgX-a7yB91ZuXQI7RF5qgkgv8gPVM0g&s=10",
+    iconSrc: "/home-icons/aws.svg",
     link: "https://aws.amazon.com/",
   },
   {
     name: "Claude",
     description: "AI-assisted ideation and content.",
-    iconSrc: "https://cdn.simpleicons.org/claude",
+    iconSrc: "/home-icons/claude.svg",
     link: "https://claude.ai/",
   },
   {
     name: "Figma",
     description: "Interface and system design.",
-    iconSrc: "https://cdn.simpleicons.org/figma",
+    iconSrc: "/home-icons/figma.svg",
     link: "https://www.figma.com/",
   },
   {
