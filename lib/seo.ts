@@ -1,17 +1,17 @@
-export const SITE_URL = new URL("https://diip3sh.xyz")
+export const SITE_URL = new URL("https://lalitsingh.me")
 
 export const SITE_NAME = "Lalit"
 export const SITE_TITLE = "Lalit | Product Engineer"
 export const SITE_DESCRIPTION =
-  "Lalit is a product engineer from India building polished digital products with thoughtful UX, scalable systems, and modern web technology."
+  "Product Engineer based in India. I build production-ready software, scalable backend systems, and AI-powered applications. Open to full-time opportunities and freelance projects."
 export const SITE_LOCALE = "en_IN"
-export const X_HANDLE = "@Lalit"
+export const X_HANDLE = "@Geltrax69"
 
 export const DEFAULT_SOCIAL_IMAGE = {
-  url: "/og-image.png",
-  width: 1622,
-  height: 970,
-  alt: "Lalit — Product Engineer from India",
+  url: "/logo.svg",
+  width: 256,
+  height: 256,
+  alt: "Lalit — Product Engineer",
 } as const
 
 export const createMetadataDescription = (
