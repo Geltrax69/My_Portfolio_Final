@@ -35,6 +35,7 @@ export const StackRow = ({
                   alt={iconAlt || `${name} icon`}
                   height={34}
                   width={34}
+                  unoptimized={iconSrcLight.startsWith("http")}
                   className="block size-[34px] shrink-0 dark:hidden"
                 />
                 <Image
@@ -42,6 +43,7 @@ export const StackRow = ({
                   alt={iconAlt || `${name} icon`}
                   height={34}
                   width={34}
+                  unoptimized={iconSrcDark.startsWith("http")}
                   className="hidden size-[34px] shrink-0 dark:block"
                 />
               </>
@@ -51,6 +53,7 @@ export const StackRow = ({
                 alt={iconAlt || `${name} icon`}
                 height={34}
                 width={34}
+                unoptimized={iconSrc.startsWith("http")}
                 className="size-[34px] shrink-0"
               />
             )}
