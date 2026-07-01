@@ -2,6 +2,8 @@ import type { HomeIntro } from "@/constants/types"
 import { MapSVG } from "../svgs/map-svg"
 import { portfolioContact } from "@/constants/portfolio/contact"
 import { BookACallLink } from "../ui/book-a-call-link"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { Code, Server, Sparkles, Briefcase, Package, Layers, Zap } from "@hugeicons/core-free-icons"
 
 type HomeIntroSectionProps = {
   intro: HomeIntro
@@ -31,19 +33,52 @@ export const HomeIntroSection = ({ intro }: HomeIntroSectionProps) => {
       </div>
 
       <p className="max-w-[520px] type-body-small text-pretty text-muted-foreground">
-        A <span className="text-foreground">Product Engineer</span> based in{" "}
+        A <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
+          <HugeiconsIcon icon={Code} size={16} strokeWidth={2} />
+          Product Engineer
+        </span>{" "}
+        based in{" "}
         <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
           <MapSVG size={16} />
           India.
         </span>{" "}
-        I build <span className="text-foreground">production-ready software</span>,{" "}
-        <span className="text-foreground">scalable backend systems</span>, and{" "}
-        <span className="text-foreground">AI-powered applications</span>. Open to{" "}
-        <span className="text-foreground">full-time</span> opportunities and{" "}
+        I build{" "}
+        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
+          <HugeiconsIcon icon={Code} size={16} strokeWidth={2} />
+          production-ready software
+        </span>
+        ,{" "}
+        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
+          <HugeiconsIcon icon={Server} size={16} strokeWidth={2} />
+          scalable backend systems
+        </span>
+        , and{" "}
+        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
+          <HugeiconsIcon icon={Sparkles} size={16} strokeWidth={2} />
+          AI-powered applications
+        </span>
+        . Open to{" "}
+        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
+          <HugeiconsIcon icon={Briefcase} size={16} strokeWidth={2} />
+          full-time
+        </span>{" "}
+        opportunities and{" "}
         <span className="text-foreground">freelance projects</span>. This website is a collection of the{" "}
-        <span className="text-foreground">products I've built</span>, from{" "}
-        <span className="text-foreground">backend architecture and APIs</span> to{" "}
-        <span className="text-foreground">modern web experiences</span>.
+        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
+          <HugeiconsIcon icon={Package} size={16} strokeWidth={2} />
+          products I've built
+        </span>
+        , from{" "}
+        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
+          <HugeiconsIcon icon={Layers} size={16} strokeWidth={2} />
+          backend architecture and APIs
+        </span>{" "}
+        to{" "}
+        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
+          <HugeiconsIcon icon={Zap} size={16} strokeWidth={2} />
+          modern web experiences
+        </span>
+        .
       </p>
       <BookACallLink
         href={portfolioContact.bookingHref}
