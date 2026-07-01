@@ -60,46 +60,31 @@ export const HomeVaultSection = ({ items }: HomeVaultSectionProps) => {
                     initial={{
                       height: 0,
                       opacity: 0,
-                      y: shouldReduceMotion ? 0 : 12,
-                      scale: shouldReduceMotion ? 1 : 0.96,
-                      filter: shouldReduceMotion ? "blur(0px)" : "blur(4px)",
+                      y: shouldReduceMotion ? 0 : 8,
                     }}
                     animate={{
                       height: "auto",
                       opacity: 1,
                       y: 0,
-                      scale: 1,
-                      filter: "blur(0px)",
                       transition: shouldReduceMotion
                         ? { duration: 0.18 }
                         : {
-                            delay: index * 0.05,
-                            height: {
-                              type: "spring",
-                              stiffness: 520,
-                              damping: 30,
-                            },
-                            default: {
-                              type: "spring",
-                              stiffness: 480,
-                              damping: 22,
-                              mass: 0.9,
-                            },
+                            delay: index * 0.04,
+                            height: { duration: 0.2 },
+                            opacity: { duration: 0.16 },
+                            y: { duration: 0.16 },
                           },
                     }}
                     exit={{
                       height: 0,
                       opacity: 0,
-                      y: shouldReduceMotion ? 0 : -4,
-                      scale: shouldReduceMotion ? 1 : 0.98,
-                      filter: shouldReduceMotion ? "blur(0px)" : "blur(2px)",
+                      y: shouldReduceMotion ? 0 : -2,
                       transition: shouldReduceMotion
                         ? { duration: 0.12 }
                         : {
                             delay:
-                              (additionalItems.length - 1 - index) * 0.04,
-                            duration: 0.16,
-                            ease: "easeIn",
+                              (additionalItems.length - 1 - index) * 0.03,
+                            duration: 0.15,
                           },
                     }}
                   >

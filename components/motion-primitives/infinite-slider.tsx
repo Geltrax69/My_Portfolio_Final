@@ -43,8 +43,12 @@ export function InfiniteSlider({
   const [key, setKey] = useState(0);
 
   useEffect(() => {
+    if (!width && !height) return;
+
     let controls;
     const size = direction === 'horizontal' ? width : height;
+    if (!size) return;
+
     const contentSize = size + gap;
     const from = reverse ? -contentSize / 2 : 0;
     const to = reverse ? 0 : -contentSize / 2;
@@ -56,7 +60,7 @@ export function InfiniteSlider({
       const remainingDistance = Math.abs(translation.get() - to);
       const transitionDuration = remainingDistance / currentSpeed;
 
-      controls = animate(translation, [translation.get(), to], {
+      controls = animate(translation, to, {
         ease: 'linear',
         duration: transitionDuration,
         onComplete: () => {
@@ -77,10 +81,9 @@ export function InfiniteSlider({
       });
     }
 
-    return controls?.stop;
+    return () => controls?.stop?.();
   }, [
     key,
-    translation,
     currentSpeed,
     width,
     height,
@@ -88,6 +91,7 @@ export function InfiniteSlider({
     isTransitioning,
     direction,
     reverse,
+    translation,
   ]);
 
   const hoverProps = validatedHoverSpeed
