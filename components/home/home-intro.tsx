@@ -3,7 +3,7 @@ import { MapSVG } from "../svgs/map-svg"
 import { portfolioContact } from "@/constants/portfolio/contact"
 import { BookACallLink } from "../ui/book-a-call-link"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Code, Server, Sparkles, Briefcase, Package, Layers, Zap } from "@hugeicons/core-free-icons"
+import { Code, Server, Sparkles } from "@hugeicons/core-free-icons"
 
 type HomeIntroSectionProps = {
   intro: HomeIntro
@@ -40,14 +40,9 @@ export const HomeIntroSection = ({ intro }: HomeIntroSectionProps) => {
         based in{" "}
         <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
           <MapSVG size={16} />
-          India.
-        </span>{" "}
-        I build{" "}
-        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
-          <HugeiconsIcon icon={Code} size={16} strokeWidth={2} />
-          production-ready software
+          India
         </span>
-        ,{" "}
+        . I build production-ready software,{" "}
         <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
           <HugeiconsIcon icon={Server} size={16} strokeWidth={2} />
           scalable backend systems
@@ -57,28 +52,7 @@ export const HomeIntroSection = ({ intro }: HomeIntroSectionProps) => {
           <HugeiconsIcon icon={Sparkles} size={16} strokeWidth={2} />
           AI-powered applications
         </span>
-        . Open to{" "}
-        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
-          <HugeiconsIcon icon={Briefcase} size={16} strokeWidth={2} />
-          full-time
-        </span>{" "}
-        opportunities and{" "}
-        <span className="text-foreground">freelance projects</span>. This website is a collection of the{" "}
-        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
-          <HugeiconsIcon icon={Package} size={16} strokeWidth={2} />
-          products I've built
-        </span>
-        , from{" "}
-        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
-          <HugeiconsIcon icon={Layers} size={16} strokeWidth={2} />
-          backend architecture and APIs
-        </span>{" "}
-        to{" "}
-        <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
-          <HugeiconsIcon icon={Zap} size={16} strokeWidth={2} />
-          modern web experiences
-        </span>
-        .
+        . Open to full-time opportunities and freelance projects. This website is a collection of the products I've built, from backend architecture and APIs to modern web experiences.
       </p>
       <BookACallLink
         href={portfolioContact.bookingHref}
