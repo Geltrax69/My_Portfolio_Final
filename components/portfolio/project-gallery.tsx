@@ -6,9 +6,6 @@ type ProjectGalleryProps = {
 }
 
 export const ProjectGallery = ({ projects }: ProjectGalleryProps) => {
-  const firstRail = projects.filter((_, index) => index % 2 === 0)
-  const secondRail = projects.filter((_, index) => index % 2 === 1)
-
   return (
     <aside
       aria-label="Selected projects"
@@ -25,25 +22,20 @@ export const ProjectGallery = ({ projects }: ProjectGalleryProps) => {
         ))}
       </div>
 
-      <div className="hidden h-full gap-framer-2 md:grid md:grid-cols-1 lg:grid-cols-2">
-        <div className="no-scrollbar flex h-full flex-col gap-framer-2 overflow-y-auto">
-          {firstRail.map((project, index) => (
-            <ProjectCard
+      <div className="no-scrollbar hidden h-full auto-rows-max gap-framer-2 overflow-y-auto md:grid md:grid-cols-2">
+        {projects
+          .sort((a, b) => a.order - b.order)
+          .map((project, index) => (
+            <div
               key={project.slug}
-              project={project}
-              isPriority={index === 0}
-            />
+              className={project.col === 2 ? "md:col-span-2" : "md:col-span-1"}
+            >
+              <ProjectCard
+                project={project}
+                isPriority={index === 0}
+              />
+            </div>
           ))}
-        </div>
-        <div className="no-scrollbar hidden h-full flex-col gap-framer-2 overflow-y-auto lg:flex">
-          {secondRail.map((project, index) => (
-            <ProjectCard
-              key={project.slug}
-              project={project}
-              isPriority={index === 0}
-            />
-          ))}
-        </div>
       </div>
     </aside>
   )
