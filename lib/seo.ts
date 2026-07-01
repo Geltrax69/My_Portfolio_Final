@@ -3,7 +3,7 @@ export const SITE_URL = new URL("https://lalitsingh.me")
 export const SITE_NAME = "Lalit"
 export const SITE_TITLE = "Lalit | Product Engineer"
 export const SITE_DESCRIPTION =
-  "Product Engineer based in India. I build production-ready software, scalable backend systems, and AI-powered applications. Open to full-time opportunities and freelance projects."
+  "Product Engineer from India building production-ready software, scalable backend systems, and AI-powered applications. Open to full-time and freelance opportunities."
 export const SITE_LOCALE = "en_IN"
 export const X_HANDLE = "@LalitBuild"
 
