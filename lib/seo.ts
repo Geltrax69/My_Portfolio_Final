@@ -5,7 +5,7 @@ export const SITE_TITLE = "Lalit | Product Engineer"
 export const SITE_DESCRIPTION =
   "Product Engineer based in India. I build production-ready software, scalable backend systems, and AI-powered applications. Open to full-time opportunities and freelance projects."
 export const SITE_LOCALE = "en_IN"
-export const X_HANDLE = "@Geltrax69"
+export const X_HANDLE = "@LalitBuild"
 
 export const DEFAULT_SOCIAL_IMAGE = {
   url: "/logo.svg",
