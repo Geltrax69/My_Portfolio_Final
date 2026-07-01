@@ -1,0 +1,191 @@
+================================================================================
+SCORECAST — Real-Time Sports Scoreboard System
+================================================================================
+A live scoreboard platform for sports events. Replaces manual score-keeping with instant synchronization across scorer phones, admin dashboards, and broadcast display screens. Officials control matches from their phones using QR codes, while scores, timers, and match events stream live to spectators and commentators.
+
+Build Stack
+Golang, Gin, WebSocket, PostgreSQL, React, TypeScript, Vite, Tailwind CSS, Docker, JWT Authentication
+
+Challenges
+- Syncing score updates across multiple devices in real-time without latency
+- Allowing match officials to control games securely via mobile devices
+- Supporting undo/redo and complex match logic (sets, timers, state transitions)
+- Handling concurrent connections (scorer, admin, display, broadcast) reliably
+
+Solutions
+- Golang WebSocket hub for instant event propagation; PostgreSQL for persistent state
+- QR/4-digit device pairing with JWT tokens; each device gets a scoped token by role
+- Event-driven match state machine; undo/redo tracked via event log (append-only)
+- Docker deployment with load balancing; tested under concurrent scorer + display load
+
+
+================================================================================
+SCHOOL_APP — School Management & Communication Platform (Web + Mobile)
+================================================================================
+An end-to-end platform for schools to manage operations via web dashboard and mobile app. Admins and principals use the responsive web interface for enrollment, fee tracking, and staff scheduling. Teachers and parents access the mobile app for instant notifications, attendance marks, and class announcements. Deployed across multiple schools with active usage, it reduces administrative overhead and improves parent-teacher engagement.
+
+Build Stack
+Frontend: React + TypeScript (Web), React Native or Flutter (Mobile) | Backend: Node.js, Express, MongoDB, Firebase Cloud Messaging (FCM), JWT Authentication, Material-UI (web)
+
+Challenges
+- Syncing data in real-time between web dashboard and mobile apps without conflicts
+- Supporting complex school hierarchies (multi-class, multi-section, different staff roles)
+- Real-time push notifications without overwhelming users or missing critical alerts
+- Handling sensitive student and financial data with strong access controls
+- Scaling to support hundreds of students, staff, and parents per school instance
+
+Solutions
+- Shared REST API backend with WebSocket support for real-time sync; optimistic UI updates
+- Hierarchical permission model (admin > principal > teacher > parent); role-gated API endpoints
+- Smart notification batching and scheduling; user preference controls (quiet hours, notification types)
+- End-to-end encryption for sensitive docs; audit logging for compliance; JWT token refresh with short TTL
+- Database indexing on frequent queries (student_id, class_id); Redis caching for role permissions
+
+
+================================================================================
+RESTAURANTOS — Multi-Tenant QR Ordering Platform (SaaS)
+================================================================================
+A SaaS ordering system for restaurants. Restaurant admins create owner accounts, owners publish menus with images and availability, and customers order from a live Instagram-style interface. Replaces physical menus and phone orders with a self-serve digital experience. Built for scalability across many restaurants simultaneously.
+
+Build Stack
+React, TypeScript, Node.js, Express, MongoDB, Tailwind CSS, Multi-tenant routing
+
+Challenges
+- Isolating restaurant data in a shared database without one restaurant seeing another's menus or orders
+- Supporting real-time menu updates (availability, prices) visible to customers instantly
+- Building a branded ordering experience that feels native to each restaurant
+- Handling high-frequency concurrent orders during peak hours without slowdowns
+
+Solutions
+- Database schema with restaurant_id foreign key on all tables; API middleware validates tenant context
+- Optimistic UI updates for menu changes; WebSocket subscriptions for live availability
+- Dynamic branding per restaurant (logo, colors, fonts) loaded from database
+- Indexed queries on (restaurant_id, created_at) for fast order retrieval; Redis caching for menus
+
+
+================================================================================
+JOB PORTAL — Candidate Application & Admin Dashboard
+================================================================================
+A job application platform where candidates submit applications and admins review, approve, or reject them. Centralizes hiring workflows in one place. Built server-rendered for speed, it tracks application status, manages candidate pipelines, and generates reports for hiring teams.
+
+Build Stack
+Node.js, Express, EJS (server-side rendering), MongoDB, Passport.js, Bootstrap
+
+Challenges
+- Preventing duplicate applications while handling concurrent submissions
+- Tracking application status through multiple stages (submitted → reviewed → approved)
+- Generating reports without slowing down the live application system
+- Managing admin and candidate permissions cleanly without fragmented logic
+
+Solutions
+- Unique compound index on (candidate_id, job_id) to block duplicates at database level
+- Status enum with timestamp tracking; audit trail of state changes
+- Report generation via aggregation pipeline; scheduled background jobs
+- Middleware-based permission checks; conditional EJS template rendering per role
+
+
+================================================================================
+INVENTORY MANAGEMENT SYSTEM — Full-Stack Product & Stock Tracking
+================================================================================
+A dashboard for managing inventory and products. Track stock levels, log inbound/outbound movements, and generate reports. Built as a full-stack app with a Spring Boot backend and React frontend, it provides real-time visibility into warehouse operations.
+
+Build Stack
+Spring Boot, React, Vite, TypeScript, PostgreSQL, JWT Authentication, Tailwind CSS, React Query
+
+Challenges
+- Preventing race conditions when multiple staff log stock movements simultaneously
+- Rendering large product tables without lag or information overload
+- Supporting drill-down from summary reports to individual transactions
+- Managing product categories and bulk operations (mark items as expired, relocate stock)
+
+Solutions
+- Database-level locking (pessimistic locking) on stock records during updates
+- Virtual scrolling for product lists; pagination for transaction history
+- Faceted search and filtering by category, status, date range
+- Batch operations with confirmation dialogs; audit trail of every stock change
+
+
+================================================================================
+CARE APP — Mobile Booking Platform for Elderly Caregiving
+================================================================================
+A Flutter mobile app connecting families with caregivers for at-home elderly care. Families browse caregiver profiles, book time slots, and track care sessions. Caregivers manage their availability and receive bookings in real-time. Solves fragmented caregiving by centralizing bookings, ratings, and payment.
+
+Build Stack
+Flutter, Firebase (auth & messaging), Dart, REST API backend, Stripe (payments)
+
+Challenges
+- Real-time availability updates as caregivers accept or decline bookings
+- Managing user trust (caregiver verification, background checks, ratings)
+- Handling sensitive health information and care notes securely
+- Supporting offline booking (queuing) when network is unreliable
+
+Solutions
+- Firebase Realtime Database for instant availability sync across app instances
+- User verification flow with document upload; public caregiver ratings and reviews
+- End-to-end encryption for health notes; role-based access (family can't see other families' data)
+- Local SQLite cache; sync queue for bookings made offline
+
+
+================================================================================
+BETTERTRACK AI — AI-Native Expense & Group Settle-Up App
+================================================================================
+An expense tracking and group settlement app with an embedded AI assistant. Track shared expenses (dinner, rent, trips), split bills intelligently, and settle up with friends. Unlike basic expense apps, it uses Gemini AI to understand spending context, suggest optimizations, and automate settle-up calculations.
+
+Build Stack
+Next.js, React, TypeScript, Node.js, Firebase, Gemini API, Stripe (payments)
+
+Challenges
+- Accurately splitting expenses when multiple payment methods are involved (someone pays, others reimburse)
+- Making AI suggestions feel useful without being intrusive or wrong
+- Handling currency conversion and international group expenses
+- Tracking who owes whom in complex multi-person scenarios without circular debts
+
+Solutions
+- Graph-based settle-up algorithm that minimizes transactions (A→B, B→C instead of individual transfers)
+- Gemini API called on-demand for suggestions (e.g., "Hey, looks like pizza was pricey—eat in tomorrow?")
+- Currency lookup + real-time exchange rates cached hourly
+- Debt simplification algorithm; UI shows settlement plan before confirming
+
+
+================================================================================
+STORAGE.ME — File Storage & Management Platform
+================================================================================
+A personal file storage system with search and organization. Users upload files (docs, photos, videos), tag them, and retrieve via full-text search. Designed for users who want cloud storage but don't trust third parties; supports self-hosting or private cloud deployment.
+
+Build Stack
+Node.js, Express, MongoDB, Elasticsearch (search), AWS S3 (or self-hosted), Vue.js, JWT
+
+Challenges
+- Fast full-text search across thousands of documents without overloading the server
+- Organizing files by tags, dates, and custom metadata without rigid folder hierarchies
+- Supporting large file uploads (videos) without timeout or memory issues
+- Keeping storage costs low while maintaining redundancy
+
+Solutions
+- Elasticsearch for full-text search with fuzzy matching and filters
+- Flat file structure with rich metadata; multi-tag support per file
+- Chunked uploads (resumable) with virus scanning before storage
+- S3 lifecycle policies (archive old files to Glacier); cost tracking per user
+
+
+================================================================================
+SAREE STORE — Dynamic E-Commerce Catalog
+================================================================================
+A premium saree product catalog built with vanilla JavaScript that reads from a simple text file. Replaces static HTML with a dynamic, auto-generated UI. Products are added by editing a text config—no database or backend needed—making it easy for non-developers to manage inventory.
+
+Build Stack
+HTML, CSS, Vanilla JavaScript, Figma (design), Text-based product config
+
+Challenges
+- Rendering product cards dynamically without a backend or framework overhead
+- Keeping product updates simple (editing a text file, not a database)
+- Optimizing images without slowing down initial load
+- Supporting filters (price, color, material) without a search backend
+
+Solutions
+- JavaScript parses text file on page load; generates HTML dynamically
+- Image lazy-loading; WebP format with JPEG fallback
+- Client-side filtering via JavaScript arrays; no server round-trips
+- Simple JSON structure within text file for easy manual edits
+
+================================================================================

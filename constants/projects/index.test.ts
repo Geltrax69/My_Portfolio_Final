@@ -5,9 +5,9 @@ import {
 } from "@/constants/projects/index";
 
 describe("getAllProjectSlugs", () => {
-  it("returns six non-empty, unique slugs", () => {
+  it("returns ten non-empty, unique slugs", () => {
     const slugs = getAllProjectSlugs();
-    expect(slugs).toHaveLength(6);
+    expect(slugs).toHaveLength(10);
     for (const slug of slugs) {
       expect(slug).toBeTruthy();
     }

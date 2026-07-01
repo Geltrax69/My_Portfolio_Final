@@ -1,9 +1,9 @@
 import type { HomeIntro } from "@/constants/types"
 
 export const homeIntro: HomeIntro = {
-  name: "diip3sh",
-  role: "Design Engineer",
+  name: "Geltrax69",
+  role: "Product Engineer",
   description:
-    "Dipesh is a design engineer building polished digital products with motion, strong interface craft, and modern web tooling.",
-  avatarAlt: "diip3sh portrait",
+    "A Product Engineer based in India. I build production-ready software, scalable backend systems, and AI-powered applications. Open to full-time opportunities and freelance projects. This website is a collection of the products I’ve built, from backend architecture and APIs to modern web experiences.",
+  avatarAlt: "Geltrax69 portrait",
 }

@@ -73,29 +73,8 @@ const SetTimerRegistryShowcase = dynamic<ShowcaseComponentProps>(
   { loading: ComponentLoadingPlaceholder }
 )
 
-const PaperShredRegistryShowcase = dynamic<ShowcaseComponentProps>(
-  () =>
-    import("@/components/showcase/paper-shred-showcase").then(
-      (module) => module.PaperShredButton
-    ),
-  { loading: ComponentLoadingPlaceholder }
-)
 
-const ScanDocumentRegistryShowcase = dynamic<ShowcaseComponentProps>(
-  () =>
-    import("@/components/showcase/scan-document-showcase").then(
-      (module) => module.ScanDocumentButton
-    ),
-  { loading: ComponentLoadingPlaceholder }
-)
 
-const LiquidGlassBlobRegistryShowcase = dynamic<ShowcaseComponentProps>(
-  () =>
-    import("@/components/showcase/liquid-glass-blob-showcase").then(
-      (module) => module.LiquidGlassBlob
-    ),
-  { loading: ComponentLoadingPlaceholder }
-)
 
 const SubscriptionRegistryShowcase = dynamic<ShowcaseComponentProps>(
   () =>
@@ -116,14 +95,10 @@ const TimezoneRegistryShowcase = dynamic<ShowcaseComponentProps>(
 const showcaseComponentPreloaders: Record<string, () => Promise<unknown>> = {
   "edit-time": () => import("@/components/showcase/edit-time-showcase"),
   "card-hover": () => import("@/components/showcase/card-hover-showcase"),
-  "paper-shred": () => import("@/components/showcase/paper-shred-showcase"),
   "analog-stick": () => import("@/components/showcase/analog-stick-showcase"),
   "polaroid-stack": () => import("@/components/showcase/polaroid-stack-showcase"),
-  "scan-document": () => import("@/components/showcase/scan-document-showcase"),
   "theme-toggle": () => import("@/components/showcase/theme-toggle-showcase"),
   "set-timer": () => import("@/components/showcase/set-timer-showcase"),
-  "liquid-glass-blob": () =>
-    import("@/components/showcase/liquid-glass-blob-showcase"),
   "timezone": () => import("@/components/showcase/timezone-showcase"),
   subscription: () => import("@/components/showcase/subscription-showcase"),
 }
@@ -144,13 +119,10 @@ export const showcaseComponentRegistry: Record<
 > = {
   "edit-time": EditTimeRegistryShowcase,
   "card-hover": CardHoverShowcase,
-  "paper-shred": PaperShredRegistryShowcase,
   "analog-stick": AnalogStickRegistryShowcase,
   "polaroid-stack": PolaroidStackRegistryShowcase,
-  "scan-document": ScanDocumentRegistryShowcase,
   "theme-toggle": ThemeToggleRegistryShowcase,
   "set-timer": SetTimerRegistryShowcase,
-  "liquid-glass-blob": LiquidGlassBlobRegistryShowcase,
   subscription: SubscriptionRegistryShowcase,
   "timezone": TimezoneRegistryShowcase,
 }

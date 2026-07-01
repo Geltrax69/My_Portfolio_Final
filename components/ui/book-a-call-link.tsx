@@ -186,12 +186,10 @@ export const BookACallLink = ({
               delay: isActive ? 0.04 : 0,
             })}
           >
-            <Image
-              src={imageSrc}
+            <img
+              src={imageSrc as string}
               alt=""
-              fill
-              sizes="40px"
-              className="object-cover"
+              className="size-full object-cover"
             />
           </motion.span>
 

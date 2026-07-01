@@ -12,7 +12,7 @@ import {
 import { cn } from "@/lib/utils"
 
 const AVATAR_URL = "/logo.svg"
-const INVITE_BACKGROUND_URL = "/logo.png"
+const INVITE_BACKGROUND_URL = "/logo.svg"
 
 export type CardLogo =
   | ReactNode
@@ -97,14 +97,14 @@ export const HolographicReferralCard = ({
   image = INVITE_BACKGROUND_URL,
   imageAlt = "Invite background",
   title = "Portfolio",
-  description = "#diip3sh",
+  description = "#LalitBuild",
   logo = defaultLogo,
   logoAlt = "Card logo",
   secondLogo = "/home-icons/x-dark.svg",
   secondLogoAlt = "X logo",
   secondLogoHref,
   secondLogoAriaLabel = "Open link",
-  ariaLabel = "invite card for #diip3sh",
+  ariaLabel = "invite card for #LalitBuild",
   className,
 }: HolographicReferralCardProps) => {
   const shouldReduceMotion = Boolean(useReducedMotion())

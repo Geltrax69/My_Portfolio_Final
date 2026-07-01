@@ -7,13 +7,7 @@ type ProjectRightColumnProps = {
 }
 
 export const ProjectRightColumn = ({ project }: ProjectRightColumnProps) => {
-  const galleryImages =
-    project.slug === "ulejra-site"
-      ? project.media.filter(
-          (media) =>
-            "src" in media && media.src.endsWith("/projects/ulejra-1.png")
-        )
-      : project.media
+  const galleryImages = project.media.filter((item) => item.type !== "video")
 
   return (
     <ScrollColumn

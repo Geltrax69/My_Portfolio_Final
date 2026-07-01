@@ -21,13 +21,12 @@ export const HomeIntroSection = ({ intro }: HomeIntroSectionProps) => {
       className="mt-8 flex w-full flex-col gap-framer-8"
     >
       <div className="flex w-full items-center justify-center gap-framer-3">
-        <Image
-          src="/logo.png"
+        <img
+          src="/logo.svg"
           alt={intro.avatarAlt}
           width={56}
           height={56}
           className="size-14 shrink-0 rounded-sm outline outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10"
-          priority
         />
         <div className="flex min-w-0 flex-1 flex-col">
           <h1 id="intro-name" className="type-heading-2 text-muted-foreground">
@@ -96,7 +95,7 @@ export const HomeIntroSection = ({ intro }: HomeIntroSectionProps) => {
       </p>
       <BookACallLink
         href={portfolioContact.bookingHref}
-        imageSrc="/logo.png"
+        imageSrc="/logo.svg"
         target="_blank"
         rel="noopener noreferrer"
       />

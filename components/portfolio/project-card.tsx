@@ -40,6 +40,7 @@ const ProjectImageMedia = ({
         sizes="(min-width: 1200px) 33vw, (min-width: 810px) 50vw, 100vw"
         loading={isPriority ? "eager" : "lazy"}
         fetchPriority={isPriority ? "high" : "auto"}
+        unoptimized={media.src.endsWith(".svg")}
         className="relative z-10 h-auto w-full rounded-sm object-cover"
       />
     </div>
@@ -58,6 +59,7 @@ const ProjectVideoMedia = ({
       <MediaPlaceholder variant="video" isVisible={!isReady} />
       <video
         key={media.src}
+        autoPlay
         muted
         loop
         playsInline

@@ -25,6 +25,7 @@ const GalleryImage = ({
           sizes="(min-width: 1024px) 66vw, (min-width: 768px) 50vw, 100vw"
           loading={isPriority ? "eager" : "lazy"}
           fetchPriority={isPriority ? "high" : "auto"}
+          unoptimized={image.src.endsWith(".svg")}
           className="h-auto w-full object-contain"
         />
       </div>
@@ -42,7 +43,8 @@ const GalleryImage = ({
           aria-label={image.alt}
           className="h-auto w-full object-contain"
         >
-          <source src={image.src} />
+          <source src={image.src} type="video/mp4" />
+          Your browser does not support HTML5 video.
         </video>
       </div>
     )

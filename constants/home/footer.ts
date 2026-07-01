@@ -2,6 +2,10 @@ import { ProjectGalleryVideo } from "../types"
 
 export const FooterBuildStack: ProjectGalleryVideo[] = [
   {
+    name: "diip3sh — Original portfolio architecture",
+    href: "https://x.com/diip3sh",
+  },
+  {
     name: "Motion",
     href: "https://motion.dev/"
   },

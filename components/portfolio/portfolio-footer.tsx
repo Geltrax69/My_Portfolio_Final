@@ -116,6 +116,9 @@ export const PortfolioFooter = ({
             <p className="text-muted-foreground">Inspired from</p>
             <div className="col-span-2 flex flex-col gap-1.5 underline-offset-4">
               {[{
+                name: "diip3sh",
+                href: "https://x.com/diip3sh"
+              }, {
                 name: "Manu Paaji",
                 href: "https://x.com/mannupaaji"
               },  {
