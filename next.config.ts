@@ -5,12 +5,12 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/apple-touch-icon.png",
-        destination: "/logo.png",
+        destination: "/logo.svg",
         permanent: true,
       },
       {
         source: "/apple-touch-icon-precomposed.png",
-        destination: "/logo.png",
+        destination: "/logo.svg",
         permanent: true,
       },
     ]
