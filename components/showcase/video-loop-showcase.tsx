@@ -7,7 +7,6 @@ export const VideoLoopShowcase = () => {
         autoPlay
         loop
         muted
-        controls
         playsInline
         preload="auto"
         aria-label="Rotating video showcase"
