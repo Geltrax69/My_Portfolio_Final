@@ -45,12 +45,12 @@ const AnalogStickRegistryShowcase = dynamic<ShowcaseComponentProps>(
   { loading: ComponentLoadingPlaceholder }
 )
 
-const PolaroidStackRegistryShowcase = dynamic<ShowcaseComponentProps>(
+const VideoLoopRegistryShowcase = dynamic<ShowcaseComponentProps>(
   () =>
-    import("@/components/showcase/polaroid-stack-showcase").then((module) => {
-      const PolaroidStackShowcase = () => <module.PolaroidStack />
+    import("@/components/showcase/video-loop-showcase").then((module) => {
+      const VideoLoopShowcase = () => <module.VideoLoopShowcase />
 
-      return PolaroidStackShowcase
+      return VideoLoopShowcase
     }),
   { loading: ComponentLoadingPlaceholder }
 )
@@ -96,7 +96,7 @@ const showcaseComponentPreloaders: Record<string, () => Promise<unknown>> = {
   "edit-time": () => import("@/components/showcase/edit-time-showcase"),
   "card-hover": () => import("@/components/showcase/card-hover-showcase"),
   "analog-stick": () => import("@/components/showcase/analog-stick-showcase"),
-  "polaroid-stack": () => import("@/components/showcase/polaroid-stack-showcase"),
+  "video-loop": () => import("@/components/showcase/video-loop-showcase"),
   "theme-toggle": () => import("@/components/showcase/theme-toggle-showcase"),
   "set-timer": () => import("@/components/showcase/set-timer-showcase"),
   "timezone": () => import("@/components/showcase/timezone-showcase"),
@@ -120,7 +120,7 @@ export const showcaseComponentRegistry: Record<
   "edit-time": EditTimeRegistryShowcase,
   "card-hover": CardHoverShowcase,
   "analog-stick": AnalogStickRegistryShowcase,
-  "polaroid-stack": PolaroidStackRegistryShowcase,
+  "video-loop": VideoLoopRegistryShowcase,
   "theme-toggle": ThemeToggleRegistryShowcase,
   "set-timer": SetTimerRegistryShowcase,
   subscription: SubscriptionRegistryShowcase,

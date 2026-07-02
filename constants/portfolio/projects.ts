@@ -544,12 +544,12 @@ export const portfolioShowcaseComponents: ProjectShowcaseComponent[] = [
   // Polaroid stack
   {
     type: "showcase",
-    title: "Polaroid stack",
+    title: "Rotating video loop",
     stack: [""],
     media: {
       type: "component",
-      componentKey: "polaroid-stack",
-      alt: "polaroid stack",
+      componentKey: "video-loop",
+      alt: "rotating video loop",
     },
     col: 2,
     order: 2,

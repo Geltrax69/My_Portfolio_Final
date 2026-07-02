@@ -81,7 +81,7 @@ const ShowcaseXIcon = ({ className }: React.SVGProps<SVGSVGElement>) => (
 const placeholderHeightByComponentKey: Record<string, string> = {
   "analog-stick": "min-h-[320px]",
   "card-hover": "min-h-[560px]",
-  "polaroid-stack": "min-h-[360px]",
+  "video-loop": "min-h-[360px]",
   "set-timer": "min-h-[500px]",
   "theme-toggle": "min-h-[140px]",
   timezone: "min-h-[490px]",
