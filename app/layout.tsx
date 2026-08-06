@@ -120,6 +120,13 @@ export default function RootLayout({
         instrumentSerif.variable
       )}
     >
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9581272008495186"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         <ThemeProvider>
           <TooltipProvider>
