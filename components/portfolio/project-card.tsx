@@ -59,6 +59,11 @@ const ProjectVideoMedia = ({
       <MediaPlaceholder variant="video" isVisible={!isReady} />
       <video
         key={media.src}
+        // The video can finish loading before hydration attaches onLoadedData,
+        // so also check readiness when the element mounts.
+        ref={(video) => {
+          if (video && video.readyState >= 2) setIsReady(true)
+        }}
         autoPlay
         muted
         loop
@@ -151,7 +156,10 @@ export const ProjectCard = ({
         <motion.div
           className="duration-portfolio overflow-hidden transition-[filter] ease-portfolio group-hover:grayscale-0 group-focus-visible:grayscale-0"
           initial={false}
-          animate={{ borderRadius: isActive ? MEDIA_RADIUS_PX : 0 }}
+          animate={{
+            borderRadius: isActive ? MEDIA_RADIUS_PX : 0,
+            scale: isActive && !shouldReduceMotion ? 1.012 : 1,
+          }}
           transition={revealSpring}
         >
           <ProjectMedia project={project} isPriority={isPriority} />
@@ -166,9 +174,19 @@ export const ProjectCard = ({
         <span className="min-w-0 truncate text-xs text-gallery-white uppercase">
           {project.title}
         </span>
-        <span className="min-w-0 truncate text-xs text-muted-foreground">
+        {/* Summary trails the title so the band reads top-down: name, then pitch. */}
+        <motion.span
+          initial={false}
+          animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 4 }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { ...revealSpring, delay: isActive ? 0.06 : 0 }
+          }
+          className="min-w-0 truncate text-xs text-muted-foreground"
+        >
           {project.summary}
-        </span>
+        </motion.span>
       </motion.div>
     </Link>
   )

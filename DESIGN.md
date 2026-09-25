@@ -9,10 +9,10 @@ colors:
   absolute-black: "#000000"
 typography:
   body-font: "Commit Mono, monospace"
-  editorial-font: "Instrument Serif, serif"
+  editorial-font: "Cormorant Garamond, serif"
   roles:
-    technical-headings: "Commit Mono — body, labels, controls, and technical headings (type-heading-1, type-heading-3)"
-    editorial-headings: "Instrument Serif — selected editorial and project headings (type-heading-2)"
+    technical-headings: "Commit Mono — body, labels, and controls"
+    editorial-headings: "Cormorant Garamond 600 — all headings (type-heading-1, -2, -3), the royal voice requested by the owner"
   headline:
     fontFamily: "Commit Mono, monospace"
     fontSize: "24px"
@@ -44,7 +44,7 @@ typography:
     lineHeight: 1.1
     letterSpacing: "-0.03em"
   editorial:
-    fontFamily: "Instrument Serif, serif"
+    fontFamily: "Cormorant Garamond, serif"
     fontSize: "24px"
     fontWeight: 400
     lineHeight: 1.3
@@ -135,10 +135,10 @@ videos, and interactive work provide the dominant visual variety.
 ## Typography
 
 **Primary Font:** Commit Mono, monospace — body, labels, controls, and technical headings.
-**Editorial Font:** Instrument Serif, serif — selected editorial and project headings (`type-heading-2`).
+**Editorial Font:** Cormorant Garamond, serif — selected editorial and project headings (`type-heading-2`).
 
 **Character:** Commit Mono provides technical credibility across body copy,
-metadata, and controls. Instrument Serif introduces editorial contrast for
+metadata, and controls. Cormorant Garamond introduces editorial contrast for
 project headings where the work calls for it. Hierarchy within each role comes
 from weight, size, line height, and composition.
 
@@ -146,7 +146,7 @@ from weight, size, line height, and composition.
 
 - **Headline** (Commit Mono 500, `24px`, `1.1`, `-0.05em`): Primary page headings on desktop and tablet (`type-heading-1`).
 - **Headline Mobile** (Commit Mono 500, `22px`, `1.1`, `-0.05em`): Primary headings below `810px`.
-- **Editorial Heading** (Instrument Serif 400, `24px`, `1.3`, `-0.01em`): Selected editorial and project headings (`type-heading-2`).
+- **Editorial Heading** (Cormorant Garamond 600, `28px`, `1.2`, `-0.005em`): Selected editorial and project headings (`type-heading-2`).
 - **Body** (Commit Mono 400, `20px`, `1.3`, `-0.03em`): Main descriptive copy; keep lines below `75ch`.
 - **Body Mobile** (Commit Mono 400, `18px`, `1.3`, `-0.03em`): Main descriptive copy below `810px`.
 - **Label** (Commit Mono 500, `14px`, `1.1`, `-0.03em`): Project metadata, footer links, and compact controls.

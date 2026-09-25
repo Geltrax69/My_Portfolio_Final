@@ -118,7 +118,7 @@ export const HomeVaultSection = ({ items }: HomeVaultSectionProps) => {
                 strokeWidth={2.5}
               /> */}
               <span className="text-sm leading-7 font-medium tracking-[-0.02em] px-1.5">
-                {isExpanded ? "Less" : "see more"}
+                {isExpanded ? "See less" : "See more"}
               </span>
             </PrimaryCtaButton>
           </div>

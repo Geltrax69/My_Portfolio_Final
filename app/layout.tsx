@@ -1,4 +1,4 @@
-import { Geist, Instrument_Serif } from "next/font/google"
+import { Cormorant_Garamond, Geist } from "next/font/google"
 import localFont from "next/font/local"
 import type { Metadata, Viewport } from "next"
 
@@ -97,10 +97,11 @@ const commitMono = localFont({
   variable: "--font-mono",
 })
 
-const instrumentSerif = Instrument_Serif({
+const royalSerif = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-instrument-serif",
-  weight: "400",
+  variable: "--font-royal-serif",
+  weight: ["500", "600"],
+  style: ["normal", "italic"],
 })
 
 export default function RootLayout({
@@ -117,7 +118,7 @@ export default function RootLayout({
         fontSans.variable,
         "font-mono",
         commitMono.variable,
-        instrumentSerif.variable
+        royalSerif.variable
       )}
     >
       <head>

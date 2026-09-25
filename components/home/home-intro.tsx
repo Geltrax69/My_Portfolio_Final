@@ -25,8 +25,8 @@ export const HomeIntroSection = ({ intro }: HomeIntroSectionProps) => {
           className="size-14 shrink-0 rounded-sm outline outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10"
         />
         <div className="flex min-w-0 flex-1 flex-col">
-          <h1 id="intro-name" className="type-heading-2 text-muted-foreground">
-            @{intro.name}
+          <h1 id="intro-name" className="royal-reveal type-heading-1">
+            {intro.name}
           </h1>
           <p className="type-body-small uppercase">{intro.role}</p>
         </div>
@@ -52,7 +52,7 @@ export const HomeIntroSection = ({ intro }: HomeIntroSectionProps) => {
           <HugeiconsIcon icon={Sparkles} size={16} strokeWidth={2} />
           AI-powered applications
         </span>
-        . Open to full-time opportunities and freelance projects. This website is a collection of the products I've built, from backend architecture and APIs to modern web experiences.
+        . Open to full-time roles and freelance projects.
       </p>
       <BookACallLink
         href={portfolioContact.bookingHref}

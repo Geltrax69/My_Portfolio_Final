@@ -305,7 +305,7 @@ export const portfolioProjects: PortfolioProject[] = [
     slug: "bettertrack-ai",
     title: "Bettertrack AI",
     summary: "Group expense splitting with a Gemini-powered settle-up assistant.",
-    col: 1,
+    col: 2,
     order: 6,
     media: [
       {
@@ -781,22 +781,6 @@ Return the full code for:
 
 Do not simplify the interaction into a static card. The final result must include the pointer-tracked 3D tilt and holographic radial glow.`,
   },
-  // Edit Time
-  {
-    type: "showcase",
-    title: "Edit Time",
-    stack: ["motion", "typescript"],
-    media: {
-      type: "video",
-      src: "https://pub-17f1ae3c481641228230d1b2dcdc07ff.r2.dev/craft/iIFMesf2PYlUOc28.mp4",
-      width: 2338,
-      height: 832,
-      alt: "Edit Time interaction preview",
-    },
-    col: 1,
-    order: 6,
-    xLink: "https://x.com/diip3sh/status/2019428201592995956?s=20",
-  },
   // Subscriptions List
   {
     type: "showcase",
@@ -810,21 +794,5 @@ Do not simplify the interaction into a static card. The final result must includ
     col: 2,
     order: 5,
     xLink: "https://x.com/diip3sh/status/2059165685067161605?s=20",
-  },
-  // Threejs Face Masking shader
-  {
-    type: "showcase",
-    title: "Threejs Face Masking shader",
-    stack: ["three.js", "shader"],
-    media: {
-      type: "video",
-      src: "https://pub-17f1ae3c481641228230d1b2dcdc07ff.r2.dev/craft/lando-norris.mp4",
-      width: 1080,
-      height: 1616,
-      alt: "Threejs Face Masking shader",
-    },
-    col: 2,
-    order: 7,
-    xLink: "https://x.com/diip3sh/status/1981019861993365736?s=20",
   },
 ]

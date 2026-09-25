@@ -6,7 +6,7 @@ export const homeAbout = {
 } as const
 
 export const homeStats: Stat[] = [
-  { value: "5", label: "Projects shipped" },
+  { value: "6", label: "Projects shipped" },
   { value: "3", label: "Disciplines" },
   { value: "100%", label: "Design-led code" },
 ]
