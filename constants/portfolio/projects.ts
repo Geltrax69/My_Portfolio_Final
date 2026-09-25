@@ -9,6 +9,7 @@ export const portfolioProjects: PortfolioProject[] = [
     type: "project",
     slug: "code",
     title: "Code",
+    summary: "Local-first desktop workspace for running multiple AI coding agents side by side.",
     col: 2,
     order: 1,
     media: [
@@ -73,6 +74,7 @@ export const portfolioProjects: PortfolioProject[] = [
     type: "project",
     slug: "scorecast",
     title: "Scorecast",
+    summary: "Real-time sports scoreboard synced across phones, dashboards, and broadcast screens.",
     col: 1,
     order: 2,
     media: [
@@ -83,22 +85,22 @@ export const portfolioProjects: PortfolioProject[] = [
       },
       {
         type: "image",
-        src: "/projects_images/scorecast/1.svg",
+        src: "/projects_images/scorecast/1.webp",
         alt: "Scorecast live match control screen",
       },
       {
         type: "image",
-        src: "/projects_images/scorecast/2.svg",
+        src: "/projects_images/scorecast/2.webp",
         alt: "Scorecast match setup screen",
       },
       {
         type: "image",
-        src: "/projects_images/scorecast/3.svg",
+        src: "/projects_images/scorecast/3.webp",
         alt: "Scorecast live scoreboard display",
       },
       {
         type: "image",
-        src: "/projects_images/scorecast/4.svg",
+        src: "/projects_images/scorecast/4.webp",
         alt: "Scorecast live broadcast overview",
       },
     ],
@@ -134,27 +136,28 @@ export const portfolioProjects: PortfolioProject[] = [
     type: "project",
     slug: "restaurantos",
     title: "RestaurantOS",
+    summary: "Multi-tenant SaaS for restaurant menus and self-serve ordering.",
     col: 1,
     order: 3,
     media: [
       {
         type: "image",
-        src: "/projects_images/restaurantos/1.svg",
+        src: "/projects_images/restaurantos/1.webp",
         alt: "RestaurantOS customer mobile menu view",
       },
       {
         type: "image",
-        src: "/projects_images/restaurantos/2.svg",
+        src: "/projects_images/restaurantos/2.webp",
         alt: "RestaurantOS merchant menu builder dashboard",
       },
       {
         type: "image",
-        src: "/projects_images/restaurantos/3.svg",
+        src: "/projects_images/restaurantos/3.webp",
         alt: "RestaurantOS checkout and live tracking view",
       },
       {
         type: "image",
-        src: "/projects_images/restaurantos/4.svg",
+        src: "/projects_images/restaurantos/4.webp",
         alt: "RestaurantOS merchant analytics overview",
       },
     ],
@@ -187,27 +190,28 @@ export const portfolioProjects: PortfolioProject[] = [
     type: "project",
     slug: "school-app",
     title: "School App",
+    summary: "Web + mobile platform running school admin, attendance, and parent updates.",
     col: 2,
-    order: 3,
+    order: 4,
     media: [
       {
         type: "image",
-        src: "/projects_images/school_app/1.svg",
+        src: "/projects_images/school_app/1.webp",
         alt: "School App admin control panel screen",
       },
       {
         type: "image",
-        src: "/projects_images/school_app/2.svg",
+        src: "/projects_images/school_app/2.webp",
         alt: "School App teacher attendance portal",
       },
       {
         type: "image",
-        src: "/projects_images/school_app/3.svg",
+        src: "/projects_images/school_app/3.webp",
         alt: "School App parent communication feed",
       },
       {
         type: "image",
-        src: "/projects_images/school_app/4.svg",
+        src: "/projects_images/school_app/4.webp",
         alt: "School App mobile notification center",
       },
     ],
@@ -240,125 +244,33 @@ export const portfolioProjects: PortfolioProject[] = [
       "Database indexing on frequent queries (student_id, class_id); Redis caching for role permissions",
     ],
   },
-  // Job Portal
-  {
-    type: "project",
-    slug: "job-portal",
-    title: "Job Portal",
-    col: 1,
-    order: 8,
-    media: [
-      {
-        type: "image",
-        src: "/projects_images/jobportal/1.svg",
-        alt: "Job Portal candidate application portal",
-      },
-      {
-        type: "image",
-        src: "/projects_images/jobportal/2.svg",
-        alt: "Job Portal recruiter application reviewer",
-      },
-      {
-        type: "image",
-        src: "/projects_images/jobportal/3.svg",
-        alt: "Job Portal pipeline configuration builder",
-      },
-      {
-        type: "image",
-        src: "/projects_images/jobportal/4.png",
-        alt: "Job Portal hiring analytics dashboard",
-      },
-    ],
-    stack: [
-      "Node.js",
-      "Express",
-      "EJS (server-side rendering)",
-      "MongoDB",
-      "Passport.js",
-      "Bootstrap",
-    ],
-    description:
-      "A job application platform where candidates submit applications and admins review, approve, or reject them. Centralizes hiring workflows in one place. Built server-rendered for speed, it tracks application status, manages candidate pipelines, and generates reports for hiring teams.",
-    challenges: [
-      "Preventing duplicate applications while handling concurrent submissions",
-      "Tracking application status through multiple stages (submitted → reviewed → approved)",
-      "Generating reports without slowing down the live application system",
-      "Managing admin and candidate permissions cleanly without fragmented logic",
-    ],
-    solutions: [
-      "Unique compound index on (candidate_id, job_id) to block duplicates at database level",
-      "Status enum with timestamp tracking; audit trail of state changes",
-      "Report generation via aggregation pipeline; scheduled background jobs",
-      "Middleware-based permission checks; conditional EJS template rendering per role",
-    ],
-  },
-  // Care App
-  {
-    type: "project",
-    slug: "care-app",
-    title: "Care App",
-    col: 1,
-    order: 9,
-    media: [
-      {
-        type: "image",
-        src: "/projects_images/care_app/1.svg",
-        alt: "Care App caregiver matching and booking flow",
-      },
-      {
-        type: "image",
-        src: "/projects_images/care_app/2.svg",
-        alt: "Care App family monitoring and notes dashboard",
-      },
-    ],
-    stack: [
-      "Flutter",
-      "Firebase (auth & messaging)",
-      "Dart",
-      "REST API backend",
-      "Stripe (payments)",
-    ],
-    description:
-      "A Flutter mobile app connecting families with caregivers for at-home elderly care. Families browse caregiver profiles, book time slots, and track care sessions. Caregivers manage their availability and receive bookings in real-time. Solves fragmented caregiving by centralizing bookings, ratings, and payment.",
-    challenges: [
-      "Real-time availability updates as caregivers accept or decline bookings",
-      "Managing user trust (caregiver verification, background checks, ratings)",
-      "Handling sensitive health information and care notes securely",
-      "Supporting offline booking (queuing) when network is unreliable",
-    ],
-    solutions: [
-      "Firebase Realtime Database for instant availability sync across app instances",
-      "User verification flow with document upload; public caregiver ratings and reviews",
-      "End-to-end encryption for health notes; role-based access (family can't see other families' data)",
-      "Local SQLite cache; sync queue for bookings made offline",
-    ],
-  },
   // Inventory Management System
   {
     type: "project",
     slug: "inventory-management",
     title: "Inventory Management System",
-    col: 2,
-    order: 6,
+    summary: "Spring Boot + React dashboard for real-time stock tracking.",
+    col: 1,
+    order: 5,
     media: [
       {
         type: "image",
-        src: "/projects_images/inventory_management/1.svg",
+        src: "/projects_images/inventory_management/1.webp",
         alt: "Inventory Management main overview table",
       },
       {
         type: "image",
-        src: "/projects_images/inventory_management/2.svg",
+        src: "/projects_images/inventory_management/2.webp",
         alt: "Inventory Management stock log details view",
       },
       {
         type: "image",
-        src: "/projects_images/inventory_management/3.svg",
+        src: "/projects_images/inventory_management/3.webp",
         alt: "Inventory Management transaction history",
       },
       {
         type: "image",
-        src: "/projects_images/inventory_management/4.svg",
+        src: "/projects_images/inventory_management/4.webp",
         alt: "Inventory Management batch operations confirmation",
       },
     ],
@@ -387,102 +299,14 @@ export const portfolioProjects: PortfolioProject[] = [
       "Batch operations with confirmation dialogs; audit trail of every stock change",
     ],
   },
-  // Storage.me
-  {
-    type: "project",
-    slug: "storage-me",
-    title: "Storage.me",
-    col: 1,
-    order: 11,
-    media: [
-      {
-        type: "image",
-        src: "/projects_images/storage_me/1.svg",
-        alt: "Storage.me private cloud file storage dashboard",
-      },
-      {
-        type: "image",
-        src: "/projects_images/storage_me/2.svg",
-        alt: "Storage.me Elasticsearch full-text document search",
-      },
-    ],
-    stack: [
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "Elasticsearch (search)",
-      "AWS S3 (or self-hosted)",
-      "Vue.js",
-      "JWT",
-    ],
-    description:
-      "A personal file storage system with search and organization. Users upload files (docs, photos, videos), tag them, and retrieve via full-text search. Designed for users who want cloud storage but don't trust third parties; supports self-hosting or private cloud deployment.",
-    challenges: [
-      "Fast full-text search across thousands of documents without overloading the server",
-      "Organizing files by tags, dates, and custom metadata without rigid folder hierarchies",
-      "Supporting large file uploads (videos) without timeout or memory issues",
-      "Keeping storage costs low while maintaining redundancy",
-    ],
-    solutions: [
-      "Elasticsearch for full-text search with fuzzy matching and filters",
-      "Flat file structure with rich metadata; multi-tag support per file",
-      "Chunked uploads (resumable) with virus scanning before storage",
-      "S3 lifecycle policies (archive old files to Glacier); cost tracking per user",
-    ],
-  },
-  // Saree Store
-  {
-    type: "project",
-    slug: "saree-store",
-    title: "Saree Store",
-    col: 1,
-    order: 12,
-    media: [
-      {
-        type: "image",
-        src: "/projects_images/saree_store/1.svg",
-        alt: "Saree Store premium product catalog landing",
-      },
-      {
-        type: "image",
-        src: "/projects_images/saree_store/2.svg",
-        alt: "Saree Store client-side faceted filtering",
-      },
-      {
-        type: "image",
-        src: "/projects_images/saree_store/3.svg",
-        alt: "Saree Store text-config based product details",
-      },
-    ],
-    stack: [
-      "HTML",
-      "CSS",
-      "Vanilla JavaScript",
-      "Figma (design)",
-      "Text-based product config",
-    ],
-    description:
-      "A premium saree product catalog built with vanilla JavaScript that reads from a simple text file. Replaces static HTML with a dynamic, auto-generated UI. Products are added by editing a text config—no database or backend needed—making it easy for non-developers to manage inventory.",
-    challenges: [
-      "Rendering product cards dynamically without a backend or framework overhead",
-      "Keeping product updates simple (editing a text file, not a database)",
-      "Optimizing images without slowing down initial load",
-      "Supporting filters (price, color, material) without a search backend",
-    ],
-    solutions: [
-      "JavaScript parses text file on page load; generates HTML dynamically",
-      "Image lazy-loading; WebP format with JPEG fallback",
-      "Client-side filtering via JavaScript arrays; no server round-trips",
-      "Simple JSON structure within text file for easy manual edits",
-    ],
-  },
   // Bettertrack AI
   {
     type: "project",
     slug: "bettertrack-ai",
     title: "Bettertrack AI",
-    col: 2,
-    order: 8,
+    summary: "Group expense splitting with a Gemini-powered settle-up assistant.",
+    col: 1,
+    order: 6,
     media: [
       {
         type: "video",
@@ -491,12 +315,12 @@ export const portfolioProjects: PortfolioProject[] = [
       },
       {
         type: "image",
-        src: "/projects_images/bettertrack_ai/1.svg",
+        src: "/projects_images/bettertrack_ai/1.webp",
         alt: "Bettertrack AI expense split visual graph",
       },
       {
         type: "image",
-        src: "/projects_images/bettertrack_ai/2.svg",
+        src: "/projects_images/bettertrack_ai/2.webp",
         alt: "Bettertrack AI Gemini conversational settle-up chat",
       },
     ],

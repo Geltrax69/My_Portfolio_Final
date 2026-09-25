@@ -19,7 +19,7 @@ const HOVER_INSET_PX = 2
 const MEDIA_RADIUS_PX = 4
 // Bottom inset = heading-band height, so the media ends just above the band
 // and its rounded bottom corners stay visible.
-const HOVER_BOTTOM_INSET_PX = 42
+const HOVER_BOTTOM_INSET_PX = 62
 
 const ProjectImageMedia = ({
   isPriority,
@@ -36,7 +36,7 @@ const ProjectImageMedia = ({
         alt={media.alt}
         width={media.width ?? 800}
         height={media.height ?? 1000}
-        quality={95}
+        quality={75}
         sizes="(min-width: 1200px) 33vw, (min-width: 810px) 50vw, 100vw"
         loading={isPriority ? "eager" : "lazy"}
         fetchPriority={isPriority ? "high" : "auto"}
@@ -161,10 +161,13 @@ export const ProjectCard = ({
         initial={false}
         animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 8 }}
         transition={revealSpring}
-        className="absolute inset-x-0 bottom-0 z-20 flex items-center gap-1.5 rounded-b-md bg-[inherit] px-3.5 pt-2 pb-3"
+        className="absolute inset-x-0 bottom-0 z-20 flex flex-col gap-0.5 rounded-b-md bg-[inherit] px-3.5 pt-2 pb-3"
       >
         <span className="min-w-0 truncate text-xs text-gallery-white uppercase">
           {project.title}
+        </span>
+        <span className="min-w-0 truncate text-xs text-muted-foreground">
+          {project.summary}
         </span>
       </motion.div>
     </Link>

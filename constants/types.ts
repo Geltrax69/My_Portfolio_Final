@@ -37,6 +37,7 @@ export type PortfolioProject = {
   order: number
   media: ProjectMedia[]
   stack: string[]
+  summary: string
   description: string
   solutions?: string[]
   challenges?: string[]

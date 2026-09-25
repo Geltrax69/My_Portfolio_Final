@@ -11,6 +11,7 @@ const project: PortfolioProject = {
   col: 1,
   order: 1,
   stack: ["React"],
+  summary: "Test summary",
   description: "Test project description",
   media: [
     {
