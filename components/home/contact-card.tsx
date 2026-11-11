@@ -7,17 +7,15 @@ import { Copy01FreeIcons, Tick01FreeIcons } from "@hugeicons/core-free-icons"
 
 import { BookACallLink } from "@/components/ui/book-a-call-link"
 
-// WebGL2 canvas: client-only, and loaded after the intro text paints.
-const GradientASCII = dynamic(() => import("@/components/GradientASCII"), {
+// Canvas text: client-only. Until it mounts, a plain-text email fills the
+// same fixed-height box, so nothing shifts. TechText labels itself
+// role="img" with the email as its accessible name.
+const TechText = dynamic(() => import("@/components/TechText"), {
   ssr: false,
+  loading: () => null,
 })
 
-// Monochrome ramp from DESIGN.md (media charcoal → structural gray →
-// gallery white), so the field reads as part of the site.
-const ASCII_COLORS = ["#2f2f2f", "#ababab", "#ffffff"]
 const COPIED_RESET_MS = 1600
-// Retina at 2x quadruples the pixels; ASCII glyphs stay crisp at 1.5x.
-const MAX_ASCII_DPR = 1.5
 
 type ContactCardProps = {
   email: string
@@ -25,14 +23,12 @@ type ContactCardProps = {
 
 export const ContactCard = ({ email }: ContactCardProps) => {
   const [isCopied, setIsCopied] = useState(false)
-  // The field plays its intro, then only animates while the card is hovered
-  // or focused. Idle, it renders nothing per frame.
-  const [isActive, setIsActive] = useState(false)
-  const [dpr, setDpr] = useState(1)
+  // Canvas fonts need a real family name, not the CSS variable next/font sets.
+  const [fontFamily, setFontFamily] = useState("")
   const resetTimerRef = useRef<number | null>(null)
 
   useEffect(() => {
-    setDpr(Math.min(window.devicePixelRatio || 1, MAX_ASCII_DPR))
+    setFontFamily(getComputedStyle(document.body).fontFamily)
     return () => {
       if (resetTimerRef.current) window.clearTimeout(resetTimerRef.current)
     }
@@ -53,58 +49,41 @@ export const ContactCard = ({ email }: ContactCardProps) => {
   }
 
   return (
-    <div
-      onPointerEnter={() => setIsActive(true)}
-      onPointerLeave={() => setIsActive(false)}
-      onFocus={() => setIsActive(true)}
-      onBlur={(event) =>
-        setIsActive(event.currentTarget.contains(event.relatedTarget))
-      }
-      className="relative isolate h-48 w-full overflow-hidden rounded-xl bg-absolute-black text-gallery-white ring-1 ring-white/10"
-    >
-      <div aria-hidden className="absolute inset-0">
-        <GradientASCII
-          colors={ASCII_COLORS}
-          shape="pinch"
-          scale={1.3}
-          cellSize={12}
-          speed={0.6}
-          paused={!isActive}
-          dpr={dpr}
-          clickEffect="burst"
-          density={1}
-          gradientOpacity={0.35}
-          glyphOpacity={0.85}
-          glow={0}
-        />
+    <div className="flex w-full flex-col gap-framer-3 rounded-xl bg-secondary p-framer-3 ring-1 ring-border">
+      {/* Drag the letters, click to kick them; they spring back. */}
+      <div className="relative h-24 w-full text-foreground">
+        {fontFamily ? (
+          <TechText
+            text={email}
+            fontFamily={fontFamily}
+            fontWeight={500}
+            letterSpacing={-0.04}
+            intro="type"
+            introDuration={1.6}
+            labels={false}
+          />
+        ) : (
+          <p className="flex h-full items-center justify-center text-2xl font-medium tracking-tight">
+            {email}
+          </p>
+        )}
       </div>
 
-      <div className="pointer-events-none relative z-10 flex h-full flex-col items-start justify-between p-framer-5">
-        {/* Solid chip: the email stays readable over any part of the field. */}
+      <div className="flex items-center justify-between gap-framer-3">
+        <BookACallLink href={`mailto:${email}`} imageSrc="/logo.svg" />
         <button
           type="button"
           onClick={handleCopy}
-          className="pointer-events-auto flex max-w-full items-center gap-2 rounded-full bg-absolute-black/85 py-1.5 pr-1.5 pl-3.5 text-gallery-white ring-1 ring-white/15 backdrop-blur-sm transition-colors outline-none hover:bg-absolute-black focus-visible:ring-2 focus-visible:ring-gallery-white"
+          className="flex h-12 shrink-0 items-center gap-2 rounded-full px-4 text-sm text-muted-foreground ring-1 ring-border transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-foreground"
           aria-label={`Copy email address ${email}`}
         >
-          <span className="truncate text-sm tracking-tight">{email}</span>
-          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-white/15">
-            <HugeiconsIcon
-              icon={isCopied ? Tick01FreeIcons : Copy01FreeIcons}
-              size={13}
-              strokeWidth={2}
-            />
-          </span>
-          <span className="sr-only" aria-live="polite">
-            {isCopied ? "Email copied" : ""}
-          </span>
+          <HugeiconsIcon
+            icon={isCopied ? Tick01FreeIcons : Copy01FreeIcons}
+            size={16}
+            strokeWidth={2}
+          />
+          <span aria-live="polite">{isCopied ? "Copied" : "Copy"}</span>
         </button>
-
-        <BookACallLink
-          href={`mailto:${email}`}
-          imageSrc="/logo.svg"
-          className="pointer-events-auto ring-1 ring-white/15"
-        />
       </div>
     </div>
   )
