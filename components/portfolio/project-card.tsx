@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 
 import { cn } from "@/lib/utils"
@@ -54,6 +54,23 @@ const ProjectVideoMedia = ({
   media: Extract<PortfolioProject["media"][number], { type: "video" }>
 }) => {
   const [isReady, setIsReady] = useState(false)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+
+  // Only decode while on screen; offscreen loops are pure wasted work.
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video || !("IntersectionObserver" in window)) return
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) {
+        void video.play().catch(() => {})
+      } else {
+        video.pause()
+      }
+    })
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="relative h-full overflow-hidden bg-portfolio-media">
@@ -63,6 +80,7 @@ const ProjectVideoMedia = ({
         // The video can finish loading before hydration attaches onLoadedData,
         // so also check readiness when the element mounts.
         ref={(video) => {
+          videoRef.current = video
           if (video && video.readyState >= 2) setIsReady(true)
         }}
         autoPlay

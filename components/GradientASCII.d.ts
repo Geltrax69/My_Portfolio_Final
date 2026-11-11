@@ -24,6 +24,8 @@ export type GradientASCIIProps = {
   clickEffect?: "none" | "wave" | "burst"
   intro?: boolean
   lightMode?: boolean
+  /** Stop the render loop once intro and pointer effects settle. */
+  paused?: boolean
   fontFamily?: string
   dpr?: number
   className?: string

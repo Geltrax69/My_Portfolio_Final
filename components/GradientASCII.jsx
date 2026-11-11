@@ -442,6 +442,7 @@ const GradientASCII = ({
   clickEffect = 'wave',
   intro = true,
   lightMode = false,
+  paused = false,
   fontFamily = DEFAULT_FONT,
   dpr,
   className = '',
@@ -474,6 +475,7 @@ const GradientASCII = ({
     clickEffect: CLICK_EFFECTS[clickEffect] ?? 1,
     intro,
     lightMode,
+    paused,
     fontFamily: fontFamily || DEFAULT_FONT,
     dpr
   };
@@ -769,7 +771,9 @@ const GradientASCII = ({
       }
       updateInput(dt);
       draw();
-      const busy = !reduce || introClock < 1 || clicks.length > 0 || trail.length > 0;
+      // paused: stop the loop once the intro and pointer effects settle, so an
+      // idle field costs nothing. Pointer moves and re-renders wake it again.
+      const busy = (!reduce && !s.paused) || introClock < 1 || clicks.length > 0 || trail.length > 0;
       if (busy) raf = requestAnimationFrame(frame);
       else last = 0;
     };

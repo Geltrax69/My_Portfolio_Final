@@ -2,8 +2,6 @@
 
 import dynamic from "next/dynamic"
 import { useEffect, useRef, useState } from "react"
-import { useReducedMotion } from "motion/react"
-
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Copy01FreeIcons, Tick01FreeIcons } from "@hugeicons/core-free-icons"
 
@@ -15,26 +13,30 @@ const GradientASCII = dynamic(() => import("@/components/GradientASCII"), {
 })
 
 // Monochrome ramp from DESIGN.md (media charcoal → structural gray →
-// gallery white), so the field reads as part of the site. Starting at
-// charcoal rather than black keeps the glyphs visible on the black card.
+// gallery white), so the field reads as part of the site.
 const ASCII_COLORS = ["#2f2f2f", "#ababab", "#ffffff"]
 const COPIED_RESET_MS = 1600
+// Retina at 2x quadruples the pixels; ASCII glyphs stay crisp at 1.5x.
+const MAX_ASCII_DPR = 1.5
 
 type ContactCardProps = {
   email: string
 }
 
 export const ContactCard = ({ email }: ContactCardProps) => {
-  const shouldReduceMotion = useReducedMotion()
   const [isCopied, setIsCopied] = useState(false)
+  // The field plays its intro, then only animates while the card is hovered
+  // or focused. Idle, it renders nothing per frame.
+  const [isActive, setIsActive] = useState(false)
+  const [dpr, setDpr] = useState(1)
   const resetTimerRef = useRef<number | null>(null)
 
-  useEffect(
-    () => () => {
+  useEffect(() => {
+    setDpr(Math.min(window.devicePixelRatio || 1, MAX_ASCII_DPR))
+    return () => {
       if (resetTimerRef.current) window.clearTimeout(resetTimerRef.current)
-    },
-    []
-  )
+    }
+  }, [])
 
   const handleCopy = async () => {
     try {
@@ -51,45 +53,45 @@ export const ContactCard = ({ email }: ContactCardProps) => {
   }
 
   return (
-    <div className="relative isolate h-48 w-full overflow-hidden rounded-xl bg-absolute-black text-gallery-white ring-1 ring-white/10">
+    <div
+      onPointerEnter={() => setIsActive(true)}
+      onPointerLeave={() => setIsActive(false)}
+      onFocus={() => setIsActive(true)}
+      onBlur={(event) =>
+        setIsActive(event.currentTarget.contains(event.relatedTarget))
+      }
+      className="relative isolate h-48 w-full overflow-hidden rounded-xl bg-absolute-black text-gallery-white ring-1 ring-white/10"
+    >
       <div aria-hidden className="absolute inset-0">
         <GradientASCII
           colors={ASCII_COLORS}
           shape="pinch"
           scale={1.3}
           cellSize={12}
-          speed={shouldReduceMotion ? 0 : 0.6}
-          intro={!shouldReduceMotion}
+          speed={0.6}
+          paused={!isActive}
+          dpr={dpr}
           clickEffect="burst"
           density={1}
-          gradientOpacity={0.9}
-          glyphOpacity={1}
-          glow={0.6}
+          gradientOpacity={0.35}
+          glyphOpacity={0.85}
+          glow={0}
         />
       </div>
-      {/* Scrim only behind the text column keeps the email legible while
-          the field stays bright on the right. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent"
-      />
 
-      {/* pointer-events-none lets the ASCII field react to the cursor
-          everywhere except the controls themselves. */}
-      <div className="pointer-events-none relative z-10 flex h-full flex-col justify-between p-framer-5">
+      <div className="pointer-events-none relative z-10 flex h-full flex-col items-start justify-between p-framer-5">
+        {/* Solid chip: the email stays readable over any part of the field. */}
         <button
           type="button"
           onClick={handleCopy}
-          className="group pointer-events-auto flex w-fit items-center gap-2 rounded-sm text-left outline-none focus-visible:ring-2 focus-visible:ring-gallery-white"
+          className="pointer-events-auto flex max-w-full items-center gap-2 rounded-full bg-absolute-black/85 py-1.5 pr-1.5 pl-3.5 text-gallery-white ring-1 ring-white/15 backdrop-blur-sm transition-colors outline-none hover:bg-absolute-black focus-visible:ring-2 focus-visible:ring-gallery-white"
           aria-label={`Copy email address ${email}`}
         >
-          <span className="type-body-small break-all text-gallery-white">
-            {email}
-          </span>
-          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-white/10 transition-colors group-hover:bg-white/20">
+          <span className="truncate text-sm tracking-tight">{email}</span>
+          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-white/15">
             <HugeiconsIcon
               icon={isCopied ? Tick01FreeIcons : Copy01FreeIcons}
-              size={14}
+              size={13}
               strokeWidth={2}
             />
           </span>
@@ -101,7 +103,7 @@ export const ContactCard = ({ email }: ContactCardProps) => {
         <BookACallLink
           href={`mailto:${email}`}
           imageSrc="/logo.svg"
-          className="pointer-events-auto"
+          className="pointer-events-auto ring-1 ring-white/15"
         />
       </div>
     </div>
