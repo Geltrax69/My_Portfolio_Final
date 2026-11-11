@@ -17,12 +17,19 @@ const sortByOrder = (
   secondItem: PortfolioGalleryItem
 ) => firstItem.order - secondItem.order
 
+// Fixed-ratio slots: every column holds the same mix of regular and tall
+// cards, so the two columns always end level whatever the media's own size.
+// min-h-0 stops aspect-ratio's content-based minimum from stretching a slot.
+const slotClassName = (item: PortfolioGalleryItem) =>
+  item.tall ? "aspect-[4/5] min-h-0" : "aspect-[4/3] min-h-0"
+
 const renderGalleryItem = (item: PortfolioGalleryItem) => {
   if (item.type === "project") {
     return (
       <ProjectCard
         key={item.slug}
         project={item}
+        className={slotClassName(item)}
         isPriority={item.order <= 3}
       />
     )
@@ -35,6 +42,7 @@ const renderGalleryItem = (item: PortfolioGalleryItem) => {
     <ShowcaseCard
       key={`${item.col}-${item.order}-${item.title}`}
       item={clientItem}
+      className={slotClassName(item)}
       promptId={promptId}
       isPriority={item.media.type === "component" && item.order <= 2}
     />

@@ -35,6 +35,8 @@ export type PortfolioProject = {
   title: string
   col: 1 | 2
   order: number
+  /** Portrait bento slot. Keep one per column so both columns end level. */
+  tall?: boolean
   media: ProjectMedia[]
   stack: string[]
   summary: string
@@ -48,6 +50,8 @@ export type ProjectShowcaseComponent = {
   title: string
   col: 1 | 2
   order: number
+  /** Portrait bento slot. Keep one per column so both columns end level. */
+  tall?: boolean
   media: ShowcaseMedia
   stack: string[]
   xLink: string

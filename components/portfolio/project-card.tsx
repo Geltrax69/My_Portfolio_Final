@@ -16,7 +16,8 @@ type ProjectCardProps = {
 }
 
 const HOVER_INSET_PX = 2
-const MEDIA_RADIUS_PX = 4
+// Card radius (12px) minus the hover inset, so the nested corners stay concentric.
+const MEDIA_RADIUS_PX = 10
 // Bottom inset = heading-band height, so the media ends just above the band
 // and its rounded bottom corners stay visible.
 const HOVER_BOTTOM_INSET_PX = 62
@@ -29,7 +30,7 @@ const ProjectImageMedia = ({
   media: Extract<PortfolioProject["media"][number], { type: "image" }>
 }) => {
   return (
-    <div className="relative overflow-hidden bg-portfolio-media">
+    <div className="relative h-full overflow-hidden bg-portfolio-media">
       <MediaPlaceholder variant="image" />
       <Image
         src={media.src}
@@ -41,7 +42,7 @@ const ProjectImageMedia = ({
         loading={isPriority ? "eager" : "lazy"}
         fetchPriority={isPriority ? "high" : "auto"}
         unoptimized={media.src.endsWith(".svg")}
-        className="relative z-10 h-auto w-full rounded-sm object-cover"
+        className="relative z-10 h-full w-full object-cover"
       />
     </div>
   )
@@ -55,7 +56,7 @@ const ProjectVideoMedia = ({
   const [isReady, setIsReady] = useState(false)
 
   return (
-    <div className="relative overflow-hidden bg-portfolio-media">
+    <div className="relative h-full overflow-hidden bg-portfolio-media">
       <MediaPlaceholder variant="video" isVisible={!isReady} />
       <video
         key={media.src}
@@ -78,7 +79,7 @@ const ProjectVideoMedia = ({
             : undefined
         }
         className={cn(
-          "duration-portfolio relative z-10 h-auto w-full object-cover transition-opacity ease-portfolio",
+          "duration-portfolio relative z-10 h-full w-full object-cover transition-opacity ease-portfolio",
           isReady ? "opacity-100" : "opacity-0"
         )}
       >
@@ -137,13 +138,13 @@ export const ProjectCard = ({
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
       className={cn(
-        "group relative block shrink-0 overflow-hidden bg-secondary outline outline-transparent [contain:layout_paint] [contain-intrinsic-size:auto_800px] [content-visibility:auto] hover:rounded-md hover:outline-border focus-visible:outline-none",
+        "group relative block shrink-0 overflow-hidden rounded-xl bg-secondary outline outline-transparent [contain:layout_paint] [contain-intrinsic-size:auto_800px] [content-visibility:auto] hover:outline-border focus-visible:outline-2 focus-visible:outline-gallery-white",
         className
       )}
     >
       <span className="sr-only">{project.title}</span>
       <motion.div
-        className="overflow-hidden"
+        className="h-full overflow-hidden"
         initial={false}
         animate={{
           paddingTop: isActive ? HOVER_INSET_PX : 0,
@@ -154,7 +155,7 @@ export const ProjectCard = ({
         transition={revealSpring}
       >
         <motion.div
-          className="duration-portfolio overflow-hidden transition-[filter] ease-portfolio group-hover:grayscale-0 group-focus-visible:grayscale-0"
+          className="duration-portfolio h-full overflow-hidden transition-[filter] ease-portfolio group-hover:grayscale-0 group-focus-visible:grayscale-0"
           initial={false}
           animate={{
             borderRadius: isActive ? MEDIA_RADIUS_PX : 0,
@@ -169,7 +170,7 @@ export const ProjectCard = ({
         initial={false}
         animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 8 }}
         transition={revealSpring}
-        className="absolute inset-x-0 bottom-0 z-20 flex flex-col gap-0.5 rounded-b-md bg-[inherit] px-3.5 pt-2 pb-3"
+        className="absolute inset-x-0 bottom-0 z-20 flex flex-col gap-0.5 bg-[inherit] px-3.5 pt-2 pb-3"
       >
         <span className="min-w-0 truncate text-xs text-gallery-white uppercase">
           {project.title}

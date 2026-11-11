@@ -24,6 +24,7 @@ import { MediaPlaceholder } from "@/components/portfolio/media-placeholder"
 type CopyStatus = "idle" | "copied" | "failed"
 
 type ShowcaseCardProps = {
+  className?: string
   isPriority?: boolean
   item: Omit<ProjectShowcaseComponent, "prompt">
   promptId?: string
@@ -47,7 +48,10 @@ const COPY_STATUS_RESET_DELAY_MS = 1500
 const SHOWCASE_OBSERVER_ROOT_MARGIN = "700px"
 const SHOWCASE_PRELOAD_ROOT_MARGIN = "1600px"
 const HOVER_INSET_PX = 2
-const MEDIA_RADIUS_PX = 4
+// Resting radius matches the card (12px); hover shrinks it by the inset so the
+// nested corners stay concentric.
+const CARD_RADIUS_PX = 12
+const MEDIA_RADIUS_PX = 10
 // Bottom inset = heading-band height, so the media ends just above the band
 // and its rounded bottom corners stay visible.
 const HOVER_BOTTOM_INSET_PX = 46
@@ -150,7 +154,7 @@ const LazyShowcaseVideo = ({ media }: { media: ShowcaseVideoMedia }) => {
   return (
     <div
       ref={containerRef}
-      className="relative overflow-hidden bg-portfolio-media"
+      className="relative h-full overflow-hidden bg-portfolio-media"
     >
       <MediaPlaceholder variant="video" isVisible={!isReady} />
       <video
@@ -164,7 +168,7 @@ const LazyShowcaseVideo = ({ media }: { media: ShowcaseVideoMedia }) => {
         onLoadedData={() => setIsReady(true)}
         style={aspectRatio ? { aspectRatio } : undefined}
         className={cn(
-          "duration-portfolio relative z-10 h-auto w-full object-cover transition-opacity ease-portfolio",
+          "duration-portfolio relative z-10 h-full w-full object-cover transition-opacity ease-portfolio",
           isReady ? "opacity-100" : "opacity-0"
         )}
       >
@@ -250,7 +254,7 @@ const LazyShowcaseComponent = ({
     <div
       ref={containerRef}
       className={cn(
-        "relative flex w-full items-center justify-center overflow-visible bg-transparent",
+        "relative flex h-full w-full items-center justify-center overflow-visible bg-transparent",
         placeholderHeightClassName
       )}
     >
@@ -318,6 +322,7 @@ const loadShowcasePrompt = (promptId: string) => {
 }
 
 export const ShowcaseCard = ({
+  className = "",
   isPriority = false,
   item,
   promptId,
@@ -464,10 +469,11 @@ export const ShowcaseCard = ({
       onFocus={handleFocus}
       onBlur={handleFocusBlur}
       className={cn(
-        "group duration-portfolio relative z-0 block shrink-0 rounded-none border border-transparent bg-secondary shadow-xs shadow-transparent transition-[border-radius,box-shadow] ease-portfolio will-change-transform ring-inset focus-within:z-50 focus-within:rounded-md focus-within:shadow-muted focus-within:ring-border focus-within:outline-none hover:z-50 hover:rounded-md hover:border-border hover:shadow-muted hover:ring-border",
+        "group duration-portfolio relative z-0 block shrink-0 rounded-xl border border-transparent bg-secondary shadow-xs shadow-transparent transition-shadow ease-portfolio will-change-transform ring-inset focus-within:z-50 focus-within:shadow-muted focus-within:ring-border focus-within:outline-none hover:z-50 hover:border-border hover:shadow-muted hover:ring-border",
         allowsMediaOverflow
           ? "overflow-visible"
-          : "overflow-hidden [contain:layout_paint] [contain-intrinsic-size:auto_800px] [content-visibility:auto]"
+          : "overflow-hidden [contain:layout_paint] [contain-intrinsic-size:auto_800px] [content-visibility:auto]",
+        className
       )}
     >
       <h2 id={`showcase-${item.order}-title`} className="sr-only">
@@ -475,6 +481,7 @@ export const ShowcaseCard = ({
       </h2>
       <motion.div
         className={cn(
+          "h-full",
           allowsMediaOverflow ? "overflow-visible" : "overflow-hidden"
         )}
         initial={false}
@@ -488,11 +495,13 @@ export const ShowcaseCard = ({
       >
         <motion.div
           className={cn(
-            "bg-card",
+            "h-full bg-card",
             allowsMediaOverflow ? "overflow-visible" : "overflow-hidden"
           )}
           initial={false}
-          animate={{ borderRadius: isActive ? MEDIA_RADIUS_PX : 0 }}
+          animate={{
+            borderRadius: isActive ? MEDIA_RADIUS_PX : CARD_RADIUS_PX,
+          }}
           transition={revealSpring}
         >
           <ShowcaseMedia
@@ -507,7 +516,7 @@ export const ShowcaseCard = ({
         animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 8 }}
         transition={revealSpring}
         style={{ pointerEvents: isActive ? "auto" : "none" }}
-        className="absolute inset-x-0 bottom-0 z-20 flex items-center justify-between gap-3 rounded-b-md bg-[inherit] px-3.5 py-2"
+        className="absolute inset-x-0 bottom-0 z-20 flex items-center justify-between gap-3 rounded-b-xl bg-[inherit] px-3.5 py-2"
       >
         <span className="min-w-0 truncate text-xs text-gallery-white uppercase">
           {item.title}

@@ -307,6 +307,7 @@ export const portfolioProjects: PortfolioProject[] = [
     summary: "Group expense splitting with a Gemini-powered settle-up assistant.",
     col: 2,
     order: 6,
+    tall: true,
     media: [
       {
         type: "video",
@@ -603,6 +604,7 @@ Do not turn this into a carousel. The key interaction is a centered stack that f
     },
     col: 1,
     order: 4,
+    tall: true,
     xLink: "https://x.com/diip3sh",
     prompt: `Create a reusable **Holographic Referral Card** component for an existing React + TypeScript codebase.
 
