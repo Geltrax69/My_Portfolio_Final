@@ -27,14 +27,19 @@ describe("HomeIntroSection contact actions", () => {
     ).not.toBeInTheDocument()
   })
 
-  it("opens booking link in a new tab safely", () => {
+  it("emails the owner and shows the address", () => {
     render(<HomeIntroSection intro={mockIntro} />)
 
-    const bookingLink = screen.getByRole("link", { name: /get in touch/i })
+    const contactLink = screen.getByRole("link", { name: /get in touch/i })
 
-    expect(bookingLink).toHaveAttribute("href", portfolioContact.bookingHref)
-    expect(bookingLink).toHaveAttribute("target", "_blank")
-    expect(bookingLink).toHaveAttribute("rel", "noopener noreferrer")
-    expect(bookingLink.className).toContain("max-w-48")
+    expect(contactLink).toHaveAttribute(
+      "href",
+      `mailto:${portfolioContact.email}`
+    )
+    expect(contactLink.className).toContain("max-w-48")
+    expect(screen.getByText(portfolioContact.email)).toBeInTheDocument()
+    expect(
+      screen.getByRole("button", { name: /copy email address/i })
+    ).toBeInTheDocument()
   })
 })

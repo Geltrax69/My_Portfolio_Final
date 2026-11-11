@@ -45,16 +45,6 @@ const AnalogStickRegistryShowcase = dynamic<ShowcaseComponentProps>(
   { loading: ComponentLoadingPlaceholder }
 )
 
-const VideoLoopRegistryShowcase = dynamic<ShowcaseComponentProps>(
-  () =>
-    import("@/components/showcase/video-loop-showcase").then((module) => {
-      const VideoLoopShowcase = () => <module.VideoLoopShowcase />
-
-      return VideoLoopShowcase
-    }),
-  { loading: ComponentLoadingPlaceholder }
-)
-
 const ThemeToggleRegistryShowcase = dynamic<ShowcaseComponentProps>(
   () =>
     import("@/components/showcase/theme-toggle-showcase").then((module) => {
@@ -73,13 +63,18 @@ const SetTimerRegistryShowcase = dynamic<ShowcaseComponentProps>(
   { loading: ComponentLoadingPlaceholder }
 )
 
-
-
-
-const SubscriptionRegistryShowcase = dynamic<ShowcaseComponentProps>(
+const FolderRegistryShowcase = dynamic<ShowcaseComponentProps>(
   () =>
-    import("@/components/showcase/subscription-showcase").then(
-      (module) => module.SubscriptionShowcase
+    import("@/components/showcase/folder-showcase").then(
+      (module) => module.FolderShowcase
+    ),
+  { loading: ComponentLoadingPlaceholder }
+)
+
+const AnimatedCounterRegistryShowcase = dynamic<ShowcaseComponentProps>(
+  () =>
+    import("@/components/showcase/animated-counter-showcase").then(
+      (module) => module.AnimatedCounterShowcase
     ),
   { loading: ComponentLoadingPlaceholder }
 )
@@ -96,11 +91,12 @@ const showcaseComponentPreloaders: Record<string, () => Promise<unknown>> = {
   "edit-time": () => import("@/components/showcase/edit-time-showcase"),
   "card-hover": () => import("@/components/showcase/card-hover-showcase"),
   "analog-stick": () => import("@/components/showcase/analog-stick-showcase"),
-  "video-loop": () => import("@/components/showcase/video-loop-showcase"),
+  folder: () => import("@/components/showcase/folder-showcase"),
+  "animated-counter": () =>
+    import("@/components/showcase/animated-counter-showcase"),
   "theme-toggle": () => import("@/components/showcase/theme-toggle-showcase"),
   "set-timer": () => import("@/components/showcase/set-timer-showcase"),
   "timezone": () => import("@/components/showcase/timezone-showcase"),
-  subscription: () => import("@/components/showcase/subscription-showcase"),
 }
 
 export const preloadShowcaseComponent = (componentKey: string) => {
@@ -120,9 +116,9 @@ export const showcaseComponentRegistry: Record<
   "edit-time": EditTimeRegistryShowcase,
   "card-hover": CardHoverShowcase,
   "analog-stick": AnalogStickRegistryShowcase,
-  "video-loop": VideoLoopRegistryShowcase,
+  folder: FolderRegistryShowcase,
+  "animated-counter": AnimatedCounterRegistryShowcase,
   "theme-toggle": ThemeToggleRegistryShowcase,
   "set-timer": SetTimerRegistryShowcase,
-  subscription: SubscriptionRegistryShowcase,
   "timezone": TimezoneRegistryShowcase,
 }

@@ -16,6 +16,12 @@ export type ProjectMedia =
       height?: number
     }
 
+/** Cells a card spans in the 4-column desktop bento grid: columns x rows. */
+export type BentoSize = "1x1" | "2x1" | "1x2" | "2x2"
+
+/** order = position in the bento grid; sizes must pack into full rows. */
+export type BentoSlot = { order: number; size: BentoSize }
+
 export type ShowcaseComponentKey = "edit-time" | "card-hover"
 
 export type ShowcaseMedia =
@@ -35,8 +41,7 @@ export type PortfolioProject = {
   title: string
   col: 1 | 2
   order: number
-  /** Portrait bento slot. Keep one per column so both columns end level. */
-  tall?: boolean
+  bento: BentoSlot
   media: ProjectMedia[]
   stack: string[]
   summary: string
@@ -50,8 +55,7 @@ export type ProjectShowcaseComponent = {
   title: string
   col: 1 | 2
   order: number
-  /** Portrait bento slot. Keep one per column so both columns end level. */
-  tall?: boolean
+  bento: BentoSlot
   media: ShowcaseMedia
   stack: string[]
   xLink: string

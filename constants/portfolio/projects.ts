@@ -12,6 +12,7 @@ export const portfolioProjects: PortfolioProject[] = [
     summary: "Local-first desktop workspace for running multiple AI coding agents side by side.",
     col: 2,
     order: 1,
+    bento: { order: 1, size: "2x2" },
     media: [
       {
         type: "image",
@@ -77,6 +78,7 @@ export const portfolioProjects: PortfolioProject[] = [
     summary: "Real-time sports scoreboard synced across phones, dashboards, and broadcast screens.",
     col: 1,
     order: 2,
+    bento: { order: 5, size: "2x1" },
     media: [
       {
         type: "video",
@@ -139,6 +141,7 @@ export const portfolioProjects: PortfolioProject[] = [
     summary: "Multi-tenant SaaS for restaurant menus and self-serve ordering.",
     col: 1,
     order: 3,
+    bento: { order: 7, size: "2x2" },
     media: [
       {
         type: "image",
@@ -193,6 +196,7 @@ export const portfolioProjects: PortfolioProject[] = [
     summary: "Web + mobile platform running school admin, attendance, and parent updates.",
     col: 2,
     order: 4,
+    bento: { order: 9, size: "1x1" },
     media: [
       {
         type: "image",
@@ -252,6 +256,7 @@ export const portfolioProjects: PortfolioProject[] = [
     summary: "Spring Boot + React dashboard for real-time stock tracking.",
     col: 1,
     order: 5,
+    bento: { order: 10, size: "1x1" },
     media: [
       {
         type: "image",
@@ -307,7 +312,7 @@ export const portfolioProjects: PortfolioProject[] = [
     summary: "Group expense splitting with a Gemini-powered settle-up assistant.",
     col: 2,
     order: 6,
-    tall: true,
+    bento: { order: 8, size: "1x2" },
     media: [
       {
         type: "video",
@@ -364,233 +369,23 @@ export const portfolioShowcaseComponents: ProjectShowcaseComponent[] = [
     },
     col: 1,
     order: 1,
+    bento: { order: 2, size: "1x1" },
     xLink: "https://x.com/diip3sh/status/2061849773871862146?s=20",
   },
-  // Polaroid stack
+  // Folder
   {
     type: "showcase",
-    title: "Rotating video loop",
-    stack: [""],
+    title: "Folder",
+    stack: ["motion", "react"],
     media: {
       type: "component",
-      componentKey: "video-loop",
-      alt: "rotating video loop",
+      componentKey: "folder",
+      alt: "Animated folder that opens to reveal cards",
     },
     col: 2,
     order: 2,
-    xLink: "https://x.com/diip3sh/status/2060767406562398324?s=20",
-    prompt: `Create a reusable **Polaroid Fan Stack** component for an existing React + TypeScript codebase.
-
-Goal:
-Build a polished photo-card stack where multiple Polaroid-style cards sit stacked in the center, then fan outward into a wide arc when the user hovers the component. The interaction should feel simple, tactile, editorial, and portfolio-grade.
-
-Component concept:
-
-* Render 7 portrait photo cards.
-* In the idle state, all cards are stacked in the center.
-* Each card has the same base size, border, rounded corners, and Polaroid-style white frame.
-* On hover over the parent container:
-
-  * the cards rotate outward from left to right
-  * the stack opens like a hand of cards
-  * the middle card stays close to \`0deg\`
-  * side cards rotate progressively outward
-* Each individual card should slightly scale up on hover.
-
-Stack:
-
-* React
-* TypeScript
-* Tailwind CSS
-* \`cn()\` utility for class merging
-
-Do not use:
-
-* Motion/Framer Motion
-* GSAP
-* Canvas
-* WebGL
-* JavaScript animation state
-* external carousel/card libraries
-
-Component name:
-
-\`\`\`tsx
-export const PolaroidStack = () => {
-  return (...)
-}
-\`\`\`
-
-Expected usage:
-
-\`\`\`tsx
-<PolaroidStack />
-\`\`\`
-
-Data structure:
-Create a typed photo-card data array:
-
-\`\`\`ts
-type FanCard = {
-  src: string
-  alt: string
-  hoverClassName: string
-}
-\`\`\`
-
-Use a \`fanCards\` array with 7 cards.
-
-Each card should include:
-
-* \`src\`
-* \`alt\`
-* \`hoverClassName\`
-
-The \`hoverClassName\` should define each card’s final rotation on parent hover.
-
-Example hover rotations:
-
-\`\`\`ts
--54deg
--36deg
--18deg
-0deg
-18deg
-36deg
-54deg
-\`\`\`
-
-Layout:
-
-* The section should be full width.
-* Height should be around \`560px\`.
-* Center the stack horizontally and vertically.
-* Hide overflow so the fanned cards stay clean inside the section.
-* Use an accessible section label:
-
-\`\`\`tsx
-<section aria-label="Fanned photo cards">
-\`\`\`
-
-Parent wrapper:
-
-* Use a \`group\` class on the parent wrapper.
-* The parent should fill the section.
-* The hover state should be driven by \`group-hover\`.
-
-Card base styling:
-Each card should be absolutely positioned in the center:
-
-\`\`\`tsx
-"absolute top-1/2 left-1/2"
-"-translate-x-1/2 -translate-y-1/2"
-\`\`\`
-
-Card size:
-
-* height around \`226px\`
-* width around \`152px\`
-
-Polaroid frame:
-
-* rounded corners around \`8%\`
-* white border around \`5px\`
-* larger bottom border around \`40px\`
-* light gray card background
-
-Transform origin:
-Use bottom-left transform origin so the fan motion feels like the cards are pivoting from one shared hand-held point:
-
-\`\`\`tsx
-"origin-bottom-left"
-\`\`\`
-
-Idle transform:
-Cards should start stacked with a slight upward translation:
-
-\`\`\`css
-rotate(0deg) translate(0px, -8px)
-\`\`\`
-
-Hover transforms:
-Each card should receive a different \`group-hover\` transform.
-
-Examples:
-
-\`\`\`tsx
-"group-hover:[transform:rotate(-54deg)_translate(0px,-8px)]"
-"group-hover:[transform:rotate(-36deg)_translate(0px,-8px)]"
-"group-hover:[transform:rotate(-18deg)_translate(0px,-8px)]"
-"group-hover:[transform:rotate(0deg)_translate(0px,-8px)]"
-"group-hover:[transform:rotate(18deg)_translate(0px,-8px)]"
-"group-hover:[transform:rotate(36deg)_translate(0px,-8px)]"
-"group-hover:[transform:rotate(54deg)_translate(0px,-8px)]"
-\`\`\`
-
-Card hover:
-Each individual card should scale up slightly on hover:
-
-\`\`\`tsx
-"hover:[scale:1.1]"
-\`\`\`
-
-Animation:
-
-* Use Tailwind transition classes.
-* Duration should be around \`200ms\`.
-* Keep the interaction quick and snappy.
-* Do not use JavaScript state for the animation.
-
-Image behavior:
-
-* Each image should fill the card.
-* Use \`object-cover\`.
-* Use \`loading="lazy"\`.
-* Use \`draggable={false}\` so the images do not accidentally drag during interaction.
-* Each image must have a meaningful \`alt\`.
-
-Example image element:
-
-\`\`\`tsx
-<img
-  className="h-full w-full object-cover"
-  draggable={false}
-  loading="lazy"
-  src={src}
-  alt={alt}
-/>
-\`\`\`
-
-Accessibility:
-
-* Use a semantic \`section\`.
-* Add \`aria-label="Fanned photo cards"\`.
-* Every image should have descriptive alt text.
-* Do not make cards keyboard-focusable unless they are clickable.
-* If cards become links later, use real anchor tags and visible focus states.
-* The hover fan effect should be decorative, not required to understand the content.
-
-Implementation requirements:
-Return:
-
-1. Full \`PolaroidStack.tsx\` component.
-2. \`FanCard\` type.
-3. Shared \`cardClassName\`.
-4. \`fanCards\` data array.
-5. Final JSX mapping over the card data.
-6. Short customization notes explaining how to change:
-
-   * number of cards
-   * card size
-   * fan angle
-   * transition duration
-   * image sources
-   * border thickness
-   * Polaroid frame size
-   * scale-on-hover amount
-
-Important:
-Do not turn this into a carousel. The key interaction is a centered stack that fans outward on parent hover using CSS transforms and Tailwind \`group-hover\`.`,
+    bento: { order: 6, size: "2x1" },
+    xLink: "https://x.com/LalitBuild",
   },
   // Card Hover
   {
@@ -604,7 +399,7 @@ Do not turn this into a carousel. The key interaction is a centered stack that f
     },
     col: 1,
     order: 4,
-    tall: true,
+    bento: { order: 3, size: "1x2" },
     xLink: "https://x.com/diip3sh",
     prompt: `Create a reusable **Holographic Referral Card** component for an existing React + TypeScript codebase.
 
@@ -783,18 +578,19 @@ Return the full code for:
 
 Do not simplify the interaction into a static card. The final result must include the pointer-tracked 3D tilt and holographic radial glow.`,
   },
-  // Subscriptions List
+  // Animated Counter
   {
     type: "showcase",
-    title: "Subscriptions List",
-    stack: ["motion", "typescript"],
+    title: "Animated Counter",
+    stack: ["motion", "react"],
     media: {
       type: "component",
-      componentKey: "subscription",
-      alt: "subscriptions list",
+      componentKey: "animated-counter",
+      alt: "Odometer-style counter rolling between rupee amounts",
     },
     col: 2,
     order: 5,
-    xLink: "https://x.com/diip3sh/status/2059165685067161605?s=20",
+    bento: { order: 4, size: "1x1" },
+    xLink: "https://x.com/LalitBuild",
   },
 ]

@@ -1,7 +1,7 @@
 import type { HomeIntro } from "@/constants/types"
 import { MapSVG } from "../svgs/map-svg"
 import { portfolioContact } from "@/constants/portfolio/contact"
-import { BookACallLink } from "../ui/book-a-call-link"
+import { ContactCard } from "./contact-card"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Code, Server, Sparkles } from "@hugeicons/core-free-icons"
 
@@ -54,12 +54,7 @@ export const HomeIntroSection = ({ intro }: HomeIntroSectionProps) => {
         </span>
         . Open to full-time roles and freelance projects.
       </p>
-      <BookACallLink
-        href={portfolioContact.bookingHref}
-        imageSrc="/logo.svg"
-        target="_blank"
-        rel="noopener noreferrer"
-      />
+      <ContactCard email={portfolioContact.email} />
     </section>
   )
 }

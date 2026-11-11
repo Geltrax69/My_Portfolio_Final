@@ -25,6 +25,7 @@ const videoShowcase: ProjectShowcaseComponent = {
   title: "Video Showcase",
   col: 1,
   order: 1,
+  bento: { order: 1, size: "1x1" },
   stack: ["Motion"],
   xLink: "https://x.com/diip3sh",
   media: {
@@ -41,6 +42,7 @@ const componentShowcase: ProjectShowcaseComponent = {
   title: "Component Showcase",
   col: 1,
   order: 2,
+  bento: { order: 2, size: "1x1" },
   stack: ["React"],
   xLink: "https://x.com/diip3sh",
   media: {
@@ -124,8 +126,7 @@ describe("ShowcaseCard media loading", () => {
     )
 
     expect(placeholder).toBeInTheDocument()
-    expect(placeholder?.parentElement?.parentElement).toHaveClass(
-      "min-h-[320px]"
-    )
+    // The bento slot sets the height; the media fills it.
+    expect(placeholder?.parentElement?.parentElement).toHaveClass("h-full")
   })
 })

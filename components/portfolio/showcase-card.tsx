@@ -82,15 +82,6 @@ const ShowcaseXIcon = ({ className }: React.SVGProps<SVGSVGElement>) => (
   </span>
 )
 
-const placeholderHeightByComponentKey: Record<string, string> = {
-  "analog-stick": "min-h-[320px]",
-  "card-hover": "min-h-[560px]",
-  "video-loop": "min-h-[360px]",
-  "set-timer": "min-h-[500px]",
-  "theme-toggle": "min-h-[140px]",
-  timezone: "min-h-[490px]",
-}
-
 const useIsNearViewport = <T extends HTMLElement>(
   rootMargin = SHOWCASE_OBSERVER_ROOT_MARGIN
 ) => {
@@ -190,8 +181,6 @@ const LazyShowcaseComponent = ({
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [isNearViewport, setIsNearViewport] = useState(isPriority)
   const ShowcaseComponent = showcaseComponentRegistry[media.componentKey]
-  const placeholderHeightClassName =
-    placeholderHeightByComponentKey[media.componentKey] ?? "min-h-[320px]"
 
   useEffect(() => {
     const element = containerRef.current
@@ -253,10 +242,7 @@ const LazyShowcaseComponent = ({
   return (
     <div
       ref={containerRef}
-      className={cn(
-        "relative flex h-full w-full items-center justify-center overflow-visible bg-transparent",
-        placeholderHeightClassName
-      )}
+      className="relative flex h-full w-full items-center justify-center overflow-visible bg-transparent"
     >
       {isNearViewport ? (
         <ShowcaseComponent resetSignal={resetSignal} />

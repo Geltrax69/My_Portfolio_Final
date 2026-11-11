@@ -10,6 +10,7 @@ const project: PortfolioProject = {
   title: "Test Project",
   col: 1,
   order: 1,
+  bento: { order: 1, size: "1x1" },
   stack: ["React"],
   summary: "Test summary",
   description: "Test project description",
